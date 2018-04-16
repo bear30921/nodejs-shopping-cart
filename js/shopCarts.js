@@ -7,7 +7,6 @@ var vm = new Vue({
         countOfPage: 7,
         carts: [],
         total: 0
-
     },
     mounted() {
         this.getProItems();
