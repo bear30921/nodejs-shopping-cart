@@ -5,7 +5,7 @@ var vm = new Vue({
         searchName: "",
         currPage: 1,
         countOfPage: 7,
-        carts:[],
+        carts: [],
         total: 0
 
     },
@@ -13,13 +13,13 @@ var vm = new Vue({
         this.getProItems();
     },
     computed: {
-        pageStart(){
+        pageStart() {
             return (this.currPage - 1) * this.countOfPage;
         },
-        totalPage(){
+        totalPage() {
             return Math.ceil(this.filteredItems.length / this.countOfPage);
         },
-        filteredItems(){
+        filteredItems() {
             var searchName = this.searchName;
             if (searchName === "") {
                 return this.items;
@@ -34,42 +34,42 @@ var vm = new Vue({
     },
     watch: {},
     methods: {
-        add(item){
-            item.qty ++;
+        add(item) {
+            item.qty++;
             this.total += item.price;
         },
-        remove(item){
-            item.qty --;
+        remove(item) {
+            item.qty--;
             this.total -= item.price;
-            if(item.qty === 0){
-                this.carts.splice(this.carts.findIndex((d)=>{
-                     return d.id === item.id;
-                }),1)
+            if (item.qty === 0) {
+                this.carts.splice(this.carts.findIndex((d) => {
+                    return d.id === item.id;
+                }), 1)
             }
         },
-        addItem(index){
+        addItem(index) {
             var item = this.items[index];
             var found = false;
             this.total += item.price;
 
-            for(let i =0 ; i < this.carts.length; i++){
-                if( this.carts[i].id === item.id){
+            for (let i = 0; i < this.carts.length; i++) {
+                if (this.carts[i].id === item.id) {
                     found = true;
                     this.carts[i].qty++;
                     break;
                 }
             }
 
-            if(!found){
+            if (!found) {
                 this.carts.push({
-                    id:item.id,
-                    name:item.name,
+                    id: item.id,
+                    name: item.name,
                     price: item.price,
-                    qty:1
+                    qty: 1
                 });
             }
         },
-        setPage(page){
+        setPage(page) {
             if (page <= 0 || page > this.totalPage) {
                 return;
             }
