@@ -6,80 +6,56 @@ var vm = new Vue({
         currPage: 1,
         countOfPage: 7,
         carts: [],
-        total: 0
+
+
     },
     mounted() {
         this.getProItems();
     },
     computed: {
-        pageStart() {
-            return (this.currPage - 1) * this.countOfPage;
-        },
-        totalPage() {
-            return Math.ceil(this.filteredItems.length / this.countOfPage);
-        },
-        filteredItems() {
-            var searchName = this.searchName;
-            if (searchName === "") {
-                return this.items;
-            } else {
-
-                return this.items.filter(function (d) {
-                    return d.name.indexOf(searchName) > -1;
-                })
+        amount() {
+            let amount = 0;
+            if (this.carts.length > 0) {
+                for (let i = 0; i < this.carts.length; i++) {
+                    let price = this.carts[i].price;
+                    let number = this.carts[i].count;
+                    let total = price * number;
+                    amount += total;
+                }
             }
-
+            return amount;
         }
     },
     watch: {},
     methods: {
-        add(item) {
-            item.qty++;
-            this.total += item.price;
-        },
-        remove(item) {
-            item.qty--;
-            this.total -= item.price;
-            if (item.qty === 0) {
-                this.carts.splice(this.carts.findIndex((d) => {
-                    return d.id === item.id;
-                }), 1)
-            }
-        },
-        addItem(index) {
-            var item = this.items[index];
-            var found = false;
-            this.total += item.price;
+        addItem(product) {
+            let checkCarts = this.carts.indexOf(product);
 
-            for (let i = 0; i < this.carts.length; i++) {
-                if (this.carts[i].id === item.id) {
-                    found = true;
-                    this.carts[i].qty++;
-                    break;
-                }
-            }
-
-            if (!found) {
-                this.carts.push({
-                    id: item.id,
-                    name: item.name,
-                    price: item.price,
-                    qty: 1
-                });
+            // 購物車不存在此商品，新增商品
+            if(checkCarts === -1) {
+                this.carts.push(product);
+                // 假如沒有count，指定count並給予數量預設值為1
+                this.$set(product, 'count',  1);
             }
         },
-        setPage(page) {
-            if (page <= 0 || page > this.totalPage) {
-                return;
+        add(product) {
+            product.count++;
+        },
+        remove(product) {
+            if(product.count === 1 || product.count === undefined) {
+                let cartsIndex = this.carts.indexOf(product);
+                this.carts.splice(cartsIndex, 1);
+            } else {
+                product.count--;
             }
-            this.currPage = page;
         },
         //取得產品資料
         getProItems: function () {
             axios.get("./pros-list.json")
                 .then((respose) => {
-                    vm.items = respose.data;
-                })
+                    this.items = respose.data;
+                });
+
         }
     }
 });

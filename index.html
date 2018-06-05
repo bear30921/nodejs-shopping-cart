@@ -15,45 +15,19 @@
 <body>
   <!-- Page Content -->
   <div id="cart-app" class="container">
-
     <div class="row">
       <div class="col-md-8">
         <h1 class="page-header">VUEJS 實戰 - <small>5倍商城</small></h1>
 
-        <div class="item">
-          <h2>貓一隻</h2>
-          <img class="item-img img-responsive" src="http://via.placeholder.com/400x400" alt="">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <p class="item-price ">$ 100 </p>
-          <a class="btn btn-primary " href="# ">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
-        </div>
-
-        <div class="item">
-          <h2>貓一隻</h2>
-          <img class="item-img img-responsive" src="http://via.placeholder.com/400x400" alt="">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <p class="item-price ">$ 100 </p>
-          <a class="btn btn-primary " href="# ">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
-        </div>
-
-        <div class="item">
-          <h2>貓一隻</h2>
-          <img class="item-img img-responsive" src="http://via.placeholder.com/400x400" alt="">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <p class="item-price ">$ 100 </p>
-          <a class="btn btn-primary " href="# ">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
-        </div>
-
-        <div class="item">
-          <h2>貓一隻</h2>
-          <img class="item-img img-responsive" src="http://via.placeholder.com/400x400" alt="">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <p class="item-price ">$ 100 </p>
-          <a class="btn btn-primary " href="# ">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
+        <div class="item" v-for="product in items" :key="product.index">
+          <h2>{{ product.name }}</h2>
+          <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">
+          <p>{{ product.info }}</p>
+          <p class="item-price ">{{ product.price }}</p>
+          <a class="btn btn-primary " @click.prevent="addItem(product)" href="#">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
         </div>
 
         <hr>
-
         <!--Pager -->
         <ul class="pagination">
           <li>
@@ -100,23 +74,16 @@
           <h4>購物車</h4>
 
           <ul class="itemsInCart ">
-            <li>
+            <li v-for="cartProduct in carts" :key="cartProduct.index">
               <div class="cart-item">
-                <div class="cart-title">商品名稱 商品名稱 商品名稱</div> <span class="price">$ 1234</span> x
-                <span class="count">1</span>
-                <div class="handler"><a href="#" class="cart-btn plus">+</a> <a href="#" class="cart-btn minus">-</a></div>
-              </div>
-            </li>
-            <li>
-              <div class="cart-item">
-                <div class="cart-title">商品名稱 商品名稱 商品名稱</div> <span class="price">$ 1234</span> x
-                <span class="count">1</span>
-                <div class="handler"><a href="#" class="cart-btn plus">+</a> <a href="#" class="cart-btn minus">-</a></div>
+                <div class="cart-title">{{ cartProduct.name }}</div> <span class="price">{{ cartProduct.price }}</span> x
+                <span class="count">{{ cartProduct.count }}</span>
+                <div class="handler"><a href="#" class="cart-btn plus" @click.prevent="add(cartProduct)">+</a> <a href="#" class="cart-btn minus" @click.prevent="remove(cartProduct)">-</a></div>
               </div>
             </li>
           </ul>
           <hr>
-          <p>小計： <span>$ 0</span></p>
+          <p>小計： <span>${{ amount }}</span></p>
         </div>
 
       </div>
@@ -128,7 +95,7 @@
   <!-- /.container -->
   <script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+  <script src="js/shopCarts.js"></script>
 
 </body>
 
