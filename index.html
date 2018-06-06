@@ -36,7 +36,7 @@
             </a>
           </li>
           <li v-for="page in countOfPage">
-            <a href="#" @click.prevent="page">{{ page }}</a>
+            <a href="#" @click.prevent="switchPage">{{ page }}</a>
           </li>
           <li>
             <a href="#" aria-label="Next">
@@ -53,7 +53,7 @@
         <div class="well ">
           <h4>商品搜尋</h4>
           <div class="input-group ">
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" v-model="searchName">
             <span class="input-group-btn">
                 <button class="btn btn-default" @click="search"><span class="glyphicon glyphicon-search "></span></button>
             </span>
@@ -71,7 +71,7 @@
               <div class="cart-item">
                 <div class="cart-title">{{ cartProduct.name }}</div> <span class="price">{{ cartProduct.price }}</span> x
                 <span class="count">{{ cartProduct.count }}</span>
-                <div class="handler"><a href="#" class="cart-btn plus" @click.prevent="add(cartProduct)">+</a> <a href="#" class="cart-btn minus" @click.prevent="remove(cartProduct)">-</a></div>
+                <div class="handler"><a href="#" class="cart-btn plus" @click.prevent="cartProduct.count++">+</a> <a href="#" class="cart-btn minus" @click.prevent="remove(cartProduct)">-</a></div>
               </div>
             </li>
           </ul>
