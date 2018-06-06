@@ -19,11 +19,11 @@
       <div class="col-md-8">
         <h1 class="page-header">VUEJS 實戰 - <small>5倍商城</small></h1>
 
-        <div class="item" v-for="product in items" :key="product.index">
+        <div class="item" v-for="product in filterProduct(type)" :key="product.index">
           <h2>{{ product.name }}</h2>
           <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">
           <p>{{ product.info }}</p>
-          <p class="item-price ">{{ product.price }}</p>
+          <p class="item-price ">${{ product.price }}</p>
           <a class="btn btn-primary " @click.prevent="addItem(product)" href="#">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
         </div>
 
@@ -62,7 +62,7 @@
           <div class="input-group ">
             <input type="text" class="form-control">
             <span class="input-group-btn">
-                <button class="btn btn-default"><span class="glyphicon glyphicon-search "></span></button>
+                <button class="btn btn-default" @click="search"><span class="glyphicon glyphicon-search "></span></button>
             </span>
           </div>
           <!-- /.input-group -->

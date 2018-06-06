@@ -2,11 +2,12 @@ var vm = new Vue({
     el: '#cart-app',
     data: {
         items: [],
+        filterItems: [],
         searchName: "",
         currPage: 1,
         countOfPage: 7,
         carts: [],
-
+        type: 1,
 
     },
     mounted() {
@@ -48,6 +49,27 @@ var vm = new Vue({
             } else {
                 product.count--;
             }
+        },
+        filterProduct(type) {
+
+            if(type === 1){
+                return this.items;
+            } else if (type === 2) {
+                return this.filterItems;
+            }
+        },
+        search(){
+            let input = document.querySelector('.form-control');
+            if(input.value !== '') {
+                this.type = 2;
+                this.filterItems = this.items.filter((product) => {
+                    // 檢查每個商品項目，比對商品名稱，回傳符合的項目
+                    // 不等於負1成立，代表有此項目
+                    return product.name.indexOf(input.value) !== -1;
+                });
+                return this.filterItems;
+            }
+
         },
         //取得產品資料
         getProItems: function () {
