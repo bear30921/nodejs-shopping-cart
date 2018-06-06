@@ -29,13 +29,19 @@ var vm = new Vue({
             return ln_amount;
         },
         countOfPage() {
-            let ln_countProduct = this.items.length;
-            // 設定初始商品顯示項目數量
-            this.showItem = 10;
-            let ln_showItem = this.showItem;
-            let ln_pages = ln_countProduct % ln_showItem === 0 ? ln_countProduct / ln_showItem : Math.ceil(ln_countProduct / ln_showItem);
-            this.pages = ln_pages;
-            return this.pages;
+            if(!this.pages) {
+                let ln_countProduct = this.items.length;
+                // 設定初始商品顯示項目數量
+                this.showItem = 10;
+                let ln_showItem = this.showItem;
+                // 顯示總共頁碼
+                let ln_pages = ln_countProduct % ln_showItem === 0 ? ln_countProduct / ln_showItem : Math.ceil(ln_countProduct / ln_showItem);
+                this.pages = ln_pages;
+                return this.pages;
+            } else if(this.page !== '') {
+                return this.pages;
+            }
+
         }
     },
     watch: {},
@@ -68,6 +74,8 @@ var vm = new Vue({
 
                 return la_totalItem;
             } else if (type === 2) {
+
+                console.log(this.filterItems.length);
                 return this.filterItems;
             }
         },
@@ -80,16 +88,23 @@ var vm = new Vue({
                     // 不等於負1成立，代表有此項目
                     return product.name.indexOf(this.searchName) !== -1;
                 });
-                return this.filterItems;
+
+                let ln_showItem = this.showItem;
+                let la_filterItems = this.filterItems;
+                let ln_pages = la_filterItems.length % ln_showItem === 0 ? la_filterItems.length / ln_showItem : Math.ceil(la_filterItems.length / ln_showItem);
+                this.pages = ln_pages;
             }
 
         },
         switchPage(number) {
 
+            // 切換分頁
             if(number > 1) {
                 this.currentPage = number;
                 this.beginItem = number * this.showItem - this.showItem;
                 this.endItem = number * this.showItem;
+                console.log(number);
+
             } else if(number === 1) {
                 this.beginItem = 0;
                 this.endItem = 10;
