@@ -5,6 +5,9 @@ var vm = new Vue({
         filterItems: [],
         searchName: "",
         pages: "",
+        showItem: "",
+        beginItem: 0,
+        endItem: 10,
         currentPage: 1,
         carts: [],
         type: 1,
@@ -27,7 +30,9 @@ var vm = new Vue({
         },
         countOfPage() {
             let ln_countProduct = this.items.length;
-            let ln_showItem = 10;
+            // 設定初始商品顯示項目數量
+            this.showItem = 10;
+            let ln_showItem = this.showItem;
             let ln_pages = ln_countProduct % ln_showItem === 0 ? ln_countProduct / ln_showItem : Math.ceil(ln_countProduct / ln_showItem);
             this.pages = ln_pages;
             return this.pages;
@@ -56,13 +61,12 @@ var vm = new Vue({
         },
         filterProduct(type) {
             if (type === 1) {
-                let ln_showItem = 10;
-                let lo_container = {};
-                for (let i = this.currentPage - 1; i < ln_showItem; i++) {
-                    // container.push(this.items[i]);
+                let la_totalItem= [];
+                for (let i = this.beginItem; i < this.endItem; i++) {
+                    la_totalItem.push(this.items[i]);
                 }
 
-                return this.items;
+                return la_totalItem;
             } else if (type === 2) {
                 return this.filterItems;
             }
@@ -80,8 +84,31 @@ var vm = new Vue({
             }
 
         },
-        switchPage() {
+        switchPage(number) {
 
+            if(number > 1) {
+                this.currentPage = number;
+                this.beginItem = number * this.showItem - this.showItem;
+                this.endItem = number * this.showItem;
+            } else if(number === 1) {
+                this.beginItem = 0;
+                this.endItem = 10;
+            }
+
+        },
+        previous() {
+            if(this.currentPage > 0){
+                this.currentPage--;
+                this.beginItem =  this.beginItem - this.showItem;
+                this.endItem = this.endItem - this.showItem;
+            }
+        },
+        next() {
+            if(this.currentPage < this.pages) {
+                this.currentPage++;
+                this.beginItem =  this.beginItem + this.showItem;
+                this.endItem = this.endItem + this.showItem;
+            }
         },
         //取得產品資料
         getProItems: function () {

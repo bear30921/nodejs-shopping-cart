@@ -19,8 +19,8 @@
       <div class="col-md-8">
         <h1 class="page-header">VUEJS 實戰 - <small>5倍商城</small></h1>
 
-        <div class="item" v-for="product in filterProduct(type)" :key="product.index">
-          <h2>{{ product.name }}</h2>
+        <div class="item" v-for="product in filterProduct(type)">
+          <h2>{{ product.name }}:編號 {{ product.index + 1 }}</h2>
           <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">
           <p>{{ product.info }}</p>
           <p class="item-price ">${{ product.price }}</p>
@@ -31,15 +31,15 @@
         <!--Pager -->
         <ul class="pagination">
           <li>
-            <a href="#" aria-label="Previous">
+            <a href="#" aria-label="Previous" @click.prevent="previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           <li v-for="page in countOfPage">
-            <a href="#" @click.prevent="switchPage">{{ page }}</a>
+            <a href="#" @click.prevent="switchPage(page)">{{ page }}</a>
           </li>
           <li>
-            <a href="#" aria-label="Next">
+            <a href="#" aria-label="Next" @click.prevent="next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
