@@ -20,7 +20,7 @@
         <h1 class="page-header">VUEJS 實戰 - <small>5倍商城</small></h1>
 
         <div class="item" v-for="product in filterProduct(type)">
-          <h2>{{ product.name }}:編號 {{ product.index + 1 }}</h2>
+          <h2>{{ product.name }}:編號 {{ product.index }}</h2>
           <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">
           <p>{{ product.info }}</p>
           <p class="item-price ">${{ product.price }}</p>
