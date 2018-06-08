@@ -153,7 +153,7 @@ var vm = new Vue({
         },
         //取得產品資料
         getProItems: function () {
-            axios.get("./javascripts/pros-list.json")
+            axios.get("./data/pros-list.json")
                 .then((respose) => {
                     this.items = respose.data;
                 });
