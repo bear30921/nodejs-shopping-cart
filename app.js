@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+
 
 // 導入路徑執行檔
 var indexRouter = require('./routes/index');
@@ -27,16 +29,17 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-// //讀取json檔案
-// app.all('*', function (req, res, next) {
-//     fs.readFile('./public/data/account.json', function (err, data) {
-//         res.locals.posts = JSON.parse(data);
-//         next();
-//     });
-// });
+app.use(session({
+    secret: 'Hello',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 600 * 1000 } //10分鐘到期
+}));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

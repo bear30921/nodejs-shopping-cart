@@ -22,6 +22,7 @@ router.post('/account', function (req, res, next) {
                 break;
             }
         }
+
         // 找不到此帳號回傳相關資訊
         if (!lb_checkAccount) {
             res.send(
@@ -30,16 +31,31 @@ router.post('/account', function (req, res, next) {
                     "message": "此帳號不存在"
                 }
             )
-        // 帳號登入成功回傳相關資訊
-        } else if (lb_checkAccount) {
+            // 第一次登入紀錄session
+        } else if (lb_checkAccount && req.body.account !== req.session.account && req.body.password !== req.session.password) {
+
+            req.session.account = req.body.account;
+            req.session.password = req.body.password;
+            req.session.time = 1;
+
             res.send(
                 {
                     "success": true,
                     "message": "登入成功"
                 }
             )
+        } else if (req.session.account !== '' && req.session.password !== '') {
+            req.session.time++;
+            res.send(
+                {
+                    "success": true,
+                    "message": "已登入",
+                }
+            )
         }
+
     });
+
 });
 
 
