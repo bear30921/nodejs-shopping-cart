@@ -6,6 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 
 // 導入路徑執行檔
 var indexRouter = require('./routes/index');
@@ -25,6 +26,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 // //讀取json檔案
 // app.all('*', function (req, res, next) {

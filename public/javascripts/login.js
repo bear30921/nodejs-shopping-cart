@@ -15,9 +15,13 @@ $(document).ready(function(){
         $.ajax({
             url: './api/account',
             data: la_info,
+            method: 'POST',
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+
+                if(data.success === false) {
+                    alert(data.message);
+                }
             }
         });
     });
