@@ -1,6 +1,6 @@
 [
   {
-    "account": "a18001",
+    "account": "apple01",
     "password": "123456",
     "name": "小明",
     "birthday": "1988/01/01",
@@ -10,8 +10,8 @@
     ]
   },
   {
-    "account": "a18002",
-    "password": "654321",
+    "account": "apple02",
+    "password": "123456",
     "name": "小黃",
     "birthday": "1991/12/25",
     "tel": [

@@ -18,9 +18,12 @@ $(document).ready(function(){
             method: 'POST',
             dataType: 'json',
             success: function(data) {
-
-                if(data.success === false) {
-                    alert(data.message);
+                // 登入成功網頁轉址到首頁
+                if(data.success) {
+                    window.location.pathname = '/';
+                } else {
+                // 登入失敗回饋錯誤資訊
+                    alert(data.message)
                 }
             }
         });

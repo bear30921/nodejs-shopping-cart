@@ -22,7 +22,7 @@ router.post('/account', function (req, res, next) {
                 break;
             }
         }
-        // 找不到此帳號回傳錯誤資訊
+        // 找不到此帳號回傳相關資訊
         if (!lb_checkAccount) {
             res.send(
                 {
@@ -30,6 +30,7 @@ router.post('/account', function (req, res, next) {
                     "message": "此帳號不存在"
                 }
             )
+        // 帳號登入成功回傳相關資訊
         } else if (lb_checkAccount) {
             res.send(
                 {
