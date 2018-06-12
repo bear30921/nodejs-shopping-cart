@@ -37,7 +37,7 @@ app.use(session({
     secret: 'Hello',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 600 * 1000 } //10分鐘到期
+    cookie: { maxAge: 300 * 1000 } //5分鐘到期
 }));
 
 

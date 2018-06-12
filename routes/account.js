@@ -36,20 +36,10 @@ router.post('/account', function (req, res, next) {
 
             req.session.account = req.body.account;
             req.session.password = req.body.password;
-            req.session.time = 1;
-
             res.send(
                 {
                     "success": true,
                     "message": "登入成功"
-                }
-            )
-        } else if (req.session.account !== '' && req.session.password !== '') {
-            req.session.time++;
-            res.send(
-                {
-                    "success": true,
-                    "message": "已登入",
                 }
             )
         }
