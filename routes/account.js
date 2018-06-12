@@ -7,9 +7,10 @@ router.post('/account', function (req, res, next) {
     fs.readFile('./public/data/account.json', function (err, data) {
         // 解析本地json檔案
         var lo_personInfo = JSON.parse(data);
-        // 解析請求的資料
+
+        // 解析請求的資料，將密碼轉為base64
         var ls_reqAccount = req.body.account;
-        var ls_reqPassword = req.body.password;
+        var ls_reqPassword = Buffer.from(req.body.password).toString('base64');
 
         // 檢查帳號，預設為false
         var lb_checkAccount = false;
