@@ -1,22 +1,40 @@
-var createError = require('http-errors');
+let createError = require('http-errors');
 
 
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let fs = require('fs');
+let bodyParser = require('body-parser');
+let session = require('express-session');
+let mongoose = require('mongoose');
+let http = require('http');
+
+
 
 
 // 導入路徑執行檔
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var accountRouter = require('./routes/account');
-var app = express();
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let loginRouter = require('./routes/login');
+let accountRouter = require('./routes/account');
+let app = express();
 
+
+// 設定連線
+app.set('port', '8080');
+let server = http.createServer(app);
+
+// 啟動伺服器
+server.listen(8080);
+
+
+// 連接mongoDB資料庫
+// var mongoDB = 'mongodb://localhost:3000/shopping-car';
+// mongoose.connect(mongoDB);
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 // view engine setup
