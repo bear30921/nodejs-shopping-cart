@@ -1,6 +1,6 @@
 
 
-var vm = new Vue({
+let vm = new Vue({
     el: '#cart-app',
     data: {
         items: [],

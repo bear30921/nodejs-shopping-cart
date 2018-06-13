@@ -1,10 +1,10 @@
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 
 // 建立Schema
-var userSchema = new Schema({
+let userSchema = new Schema({
     account: String,
     password: String,
     name: String,
@@ -13,6 +13,6 @@ var userSchema = new Schema({
 });
 
 // 建立model
-var userModel = mongoose.model('user', userSchema );
+let userModel = mongoose.model('user', userSchema );
 
 module.exports = userModel;

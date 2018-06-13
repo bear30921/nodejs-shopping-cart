@@ -31,10 +31,9 @@ server.listen(8080);
 
 
 // 連接mongoDB資料庫
-// var mongoDB = 'mongodb://localhost:3000/shopping-car';
-// mongoose.connect(mongoDB);
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connect('mongodb://shopping:mongo@192.168.1.76:2717/shopping-car');
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 // view engine setup
