@@ -16,7 +16,7 @@ let http = require('http');
 
 // 導入路徑執行檔
 let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
+let userRouter = require('./routes/user');
 let loginRouter = require('./routes/login');
 let accountRouter = require('./routes/account');
 let app = express();
@@ -60,7 +60,7 @@ app.use(session({
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/api', accountRouter);
 
