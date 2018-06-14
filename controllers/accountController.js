@@ -1,25 +1,20 @@
-let fs = require('fs');
+let userModel = require('../models/userModel');
 
 module.exports.accountCheck = function (req, res, next) {
-    fs.readFile('./public/data/account.json', function (err, data) {
 
-        // 解析本地json檔案
-        let lo_personInfo = JSON.parse(data);
+    let ls_userAccount = req.body.account;
+    let ls_userPassword = req.body.password;
+    let lb_checkAccount = false;
 
-        // 解析請求的資料，將密碼轉為base64
-        let ls_reqAccount = req.body.account;
-        let ls_reqPassword = Buffer.from(req.body.password).toString('base64');
 
-        // 檢查帳號，預設為false
-        let lb_checkAccount = false;
+    // 帳密資料庫比對
+    userModel.find({account: ls_userAccount, password: ls_userPassword}, (err, people) => {
+        if (err) {
+            return res.status(500).send(err);
 
-        // 帳號比對
-        for (let i = 0; i < lo_personInfo.length; i++) {
-            if (ls_reqAccount === lo_personInfo[i].account && ls_reqPassword === lo_personInfo[i].password) {
-                // 代表有此帳號，設定為true
-                lb_checkAccount = true;
-                break;
-            }
+            // 資料庫搜尋，如果有找到資料，代表有此帳號
+        } else if (Object.keys(people).length !== 0) {
+            lb_checkAccount = true;
         }
 
         // 找不到此帳號回傳相關資訊
@@ -32,7 +27,6 @@ module.exports.accountCheck = function (req, res, next) {
             )
             // 第一次登入紀錄session
         } else if (lb_checkAccount && req.body.account !== req.session.account && req.body.password !== req.session.password) {
-
             req.session.account = req.body.account;
             req.session.password = req.body.password;
             res.send(
@@ -42,6 +36,5 @@ module.exports.accountCheck = function (req, res, next) {
                 }
             )
         }
-
     });
 };
