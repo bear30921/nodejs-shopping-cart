@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>登入頁面</title>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/signup.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Page Content -->
+<div class="login" id="login">
+    <div class="container">
+        <h1>加入會員</h1>
+        <form method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6 cancel-padding">
+                    <label for="account">帳號</label>
+                    <input type="text" class="form-control" id="account" name="account" v-model="account" placeholder="請輸入帳號...">
+                </div>
+                <div class="form-group col-md-6 cancel-padding">
+                    <label for="password">密碼</label>
+                    <input type="password" class="form-control" id="password" name="password" v-model="password" placeholder="請輸入密碼...">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" class="form-control" id="name" name="name" v-model="name" placeholder="請輸入姓名...">
+            </div>
+            <div class="form-group">
+                <label for="birthday">生日</label>
+                <input type="text" class="form-control" id="birthday" name="birthday" v-model="birthday" placeholder="生日格式:1990/10/10">
+            </div>
+            <div class="form-group">
+                <label for="tel1">電話1</label>
+                <input type="text" class="form-control" id="tel1" name="tel1" v-model="tel1" placeholder="請輸入電話...">
+            </div>
+            <div class="form-group">
+                <label for="tel2">電話2</label>
+                <input type="text" class="form-control" id="tel2" name="tel2" v-model="tel2" placeholder="請輸入電話...">
+            </div>
+            <button type="button" class="btn btn-primary" @click="signup">註冊</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- /.container -->
+<script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
+<script src="javascripts/jquery.js"></script>
+<script src="javascripts/signup.js"></script>
+
+</body>
+
+</html>

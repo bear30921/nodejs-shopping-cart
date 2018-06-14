@@ -14,7 +14,7 @@ let vm = new Vue({
             lo_info.account = ls_account;
             lo_info.password = ls_password;
             // 發一個請求
-            $.post("./api/account", lo_info, function (data) {
+            $.post("/api/account", lo_info, function (data) {
                 if (data.message === '登入成功') {
                     window.location.pathname = '/';
                 } else {

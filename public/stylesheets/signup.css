@@ -1,0 +1,21 @@
+.container {
+    border: 1px solid #ccc;
+}
+
+.login {
+    margin-top: 200px;
+}
+
+.container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.container > h1 {
+    text-align: center;
+}
+
+.cancel-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
