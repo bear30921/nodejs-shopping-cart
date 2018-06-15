@@ -1,5 +1,9 @@
 let vm = new Vue({
     el: '#userEdit',
+    data: {
+        message: '',
+        check: false
+    },
     methods: {
         update() {
 
@@ -30,14 +34,24 @@ let vm = new Vue({
             });
         },
         openDialog() {
-            $( "#dialog" ).dialog();
+            $("#dialog").dialog();
         },
         checkPassword(event) {
 
             let lo_info = {};
+            lo_info.id = document.getElementById('userId').value;
             lo_info.passwordOld = event.currentTarget.value;
-            $.post("/user/edit", lo_info, function (data) {
-                console.log(data);
+
+
+            let self = this;
+            $.post("/user/check", lo_info, function (data) {
+                if (data.message === '密碼正確') {
+                    self.check = true;
+                    self.message = data.message;
+                } else {
+                    self.check = true;
+                    self.message = data.message;
+                }
             });
         },
 

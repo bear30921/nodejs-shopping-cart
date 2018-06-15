@@ -10,6 +10,9 @@ router.get('/edit/:id', userController.userEdit);
 // 更新使用者資訊
 router.post('/edit', userController.userUpdate);
 
+// 輸入舊密碼進行檢查
+router.post('/check', userController.userPasswordCheck);
+
 
 
 

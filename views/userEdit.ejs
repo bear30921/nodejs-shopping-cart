@@ -58,7 +58,7 @@
 
     <div id="dialog" title="變更密碼">
         <div class="form-group cancel-padding">
-            <label for="passwordOld">舊密碼</label>
+            <label for="passwordOld">舊密碼</label><span v-show="check" style="color: red">({{ message }})</span>
             <input type="password" class="form-control" id="passwordOld" name="passwordOld" placeholder="請輸入密碼..." @change="checkPassword">
         </div>
         <div class="form-group cancel-padding">

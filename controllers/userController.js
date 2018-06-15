@@ -53,3 +53,34 @@ module.exports.userUpdate = function (req, res, next) {
         }
     });
 };
+
+
+module.exports.userPasswordCheck = function (req, res, next) {
+    // 取得基本資料
+
+    let ls_userId = req.body.id;
+    let ls_userPasswordOld = req.body.passwordOld;
+
+    userModel.find({_id: ls_userId}, (err, people) => {
+        if (err) {
+            return res.status(500).send(err);
+
+            // 資料庫搜尋，如果有找到資料，代表有此帳號
+        } else if (Object.keys(people).length !== 0) {
+
+            // 輸入舊密碼和資料庫密碼進行比對
+            let lo_userInfo = people[0];
+            if (lo_userInfo.password === ls_userPasswordOld) {
+                res.send({
+                    "success": true,
+                    "message": "密碼正確"
+                });
+            } else {
+                res.send({
+                    "success": false,
+                    "message": "密碼錯誤"
+                });
+            }
+        }
+    });
+};
