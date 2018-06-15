@@ -8,13 +8,23 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>VUEJS 實戰 - 5倍商城</title>
-  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-  <link href="stylesheets/blog-home.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+  <link href="/stylesheets/blog-home.css" rel="stylesheet">
 </head>
 
 <body>
   <!-- Page Content -->
   <div id="cart-app" class="container">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">購物商城</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/user/edit/<%= id %>"><span class="glyphicon glyphicon-user"></span>會員修改</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="row">
       <div class="col-md-8">
         <h1 class="page-header">VUEJS 實戰 - <small>5倍商城</small></h1>
@@ -88,7 +98,7 @@
   <!-- /.container -->
   <script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="javascripts/shopCarts.js"></script>
+  <script src="/javascripts/shopCarts.js"></script>
 
 </body>
 

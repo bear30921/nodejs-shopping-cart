@@ -6,7 +6,7 @@ module.exports.user = function (req, res, next) {
 };
 
 
-module.exports.userCreate = function (req, res, next) {
+module.exports.signup = function (req, res, next) {
     let lo_userInfo = {};
     let lb_checkAccount = false;
 
