@@ -15,6 +15,7 @@ module.exports.userEdit = function (req, res, next) {
             let lo_userInfo = people[0];
 
             res.render('userEdit', {
+                id: lo_userInfo._id,
                 account: lo_userInfo.account,
                 password: lo_userInfo.password,
                 name: lo_userInfo.name,
@@ -28,28 +29,30 @@ module.exports.userEdit = function (req, res, next) {
 };
 
 
-module.exports.userSave = function (req, res, next) {
-    let ls_userId = req.params.id;
+module.exports.userUpdate = function (req, res, next) {
 
-    userModel.find({_id: ls_userId}, (err, people) => {
 
+    let lo_userInfo = {};
+    lo_userInfo.id = req.body.id;
+    lo_userInfo.account = req.body.account;
+    lo_userInfo.password = req.body.password;
+    lo_userInfo.name = req.body.name;
+    lo_userInfo.birthday = req.body.birthday;
+    lo_userInfo.tel = [];
+    lo_userInfo.tel.push(req.body.tel1);
+    lo_userInfo.tel.push(req.body.tel2);
+    // console.log(lo_userInfo);
+
+    userModel.update({_id: lo_userInfo.id}, {$set: lo_userInfo}, function (err) {
         if (err) {
-            return res.status(500).send(err);
-
-            // 資料庫搜尋，如果有找到資料，代表有此帳號
-        } else if (Object.keys(people).length !== 0) {
-
-            let lo_userInfo = people[0];
-
-            res.render('userEdit', {
-                account: lo_userInfo.account,
-                password: lo_userInfo.password,
-                name: lo_userInfo.name,
-                birthday: lo_userInfo.birthday,
-                tel1: lo_userInfo.tel[0],
-                tel2: lo_userInfo.tel[1],
-            });
+            console.log(err);
+        } else {
+            res.send(
+                {
+                    "success": true,
+                    "message": "資料更新成功"
+                }
+            );
         }
     });
-
 };

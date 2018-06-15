@@ -10,6 +10,7 @@ module.exports.signup = function (req, res, next) {
     let lo_userInfo = {};
     let lb_checkAccount = false;
 
+
     lo_userInfo.account = req.body.account;
     lo_userInfo.password = req.body.password;
     lo_userInfo.name = req.body.name;

@@ -22,10 +22,10 @@ let vm = new Vue({
             // 把收集好的資料放置一個物件容器
             lo_info.account = ls_account;
             lo_info.password = ls_password;
-            lo_info.ls_name = ls_name;
-            lo_info.ls_birthday = ls_birthday;
-            lo_info.ls_tel1 = ls_tel1;
-            lo_info.ls_tel2 = ls_tel2;
+            lo_info.name = ls_name;
+            lo_info.birthday = ls_birthday;
+            lo_info.tel1 = ls_tel1;
+            lo_info.tel2 = ls_tel2;
 
             // 發一個請求，驗證資料
             $.post("/signup", lo_info, function (data) {
