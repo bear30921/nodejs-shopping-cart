@@ -30,18 +30,15 @@ module.exports.userEdit = function (req, res, next) {
 
 
 module.exports.userUpdate = function (req, res, next) {
-
-
+    // 取得基本資料
     let lo_userInfo = {};
     lo_userInfo.id = req.body.id;
-    lo_userInfo.account = req.body.account;
-    lo_userInfo.password = req.body.password;
     lo_userInfo.name = req.body.name;
     lo_userInfo.birthday = req.body.birthday;
     lo_userInfo.tel = [];
     lo_userInfo.tel.push(req.body.tel1);
     lo_userInfo.tel.push(req.body.tel2);
-    // console.log(lo_userInfo);
+
 
     userModel.update({_id: lo_userInfo.id}, {$set: lo_userInfo}, function (err) {
         if (err) {

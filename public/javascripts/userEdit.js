@@ -1,5 +1,5 @@
 let vm = new Vue({
-    el: '#login',
+    el: '#userEdit',
     methods: {
         update() {
 
@@ -21,7 +21,6 @@ let vm = new Vue({
             lo_info.birthday = ls_birthday;
             lo_info.tel1 = ls_tel1;
             lo_info.tel2 = ls_tel2;
-
             // 發一個請求，驗證資料
             $.post("/user/edit", lo_info, function (data) {
                 if (data.message === '資料更新成功') {
@@ -29,7 +28,19 @@ let vm = new Vue({
                     alert(data.message);
                 }
             });
-        }
+        },
+        openDialog() {
+            $( "#dialog" ).dialog();
+        },
+        checkPassword(event) {
+
+            let lo_info = {};
+            lo_info.passwordOld = event.currentTarget.value;
+            $.post("/user/edit", lo_info, function (data) {
+                console.log(data);
+            });
+        },
+
     }
 });
 
