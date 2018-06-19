@@ -4,8 +4,8 @@ let signupController = require('../controllers/signupController');
 
 
 
-/* GET users listing. */
-router.get('/', signupController.user);
+
+router.get('/', signupController.index);
 
 router.post('/', signupController.signup);
 

@@ -4,7 +4,7 @@ let userController = require('../controllers/userController');
 
 
 // 取得使用者資訊
-router.get('/edit/:id', userController.userEdit);
+router.get('/edit/:id', userController.index);
 
 
 // 更新使用者資訊

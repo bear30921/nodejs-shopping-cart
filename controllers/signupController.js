@@ -3,7 +3,7 @@ let md5 = require('md5');
 
 
 
-module.exports.user = function (req, res, next) {
+module.exports.index = function (req, res, next) {
     res.render('signup', {title: '你好喔'});
 };
 

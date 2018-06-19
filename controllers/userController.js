@@ -2,7 +2,7 @@ let userModel = require('../models/userModel');
 let md5 = require('md5');
 
 
-module.exports.userEdit = function (req, res, next) {
+module.exports.index = function (req, res, next) {
     let ls_userId = req.params.id;
 
     userModel.find({_id: ls_userId}, (err, people) => {
