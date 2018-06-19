@@ -1,4 +1,5 @@
 let userModel = require('../models/userModel');
+let orderModel = require('../models/orderModel');
 let md5 = require('md5');
 
 
@@ -87,17 +88,11 @@ module.exports.userPasswordCheck = function (req, res, next) {
 };
 
 
-
-
 module.exports.userPassword = function (req, res, next) {
     // 取得基本資料
     let lo_userInfo = {};
     lo_userInfo.account = req.body.account;
     lo_userInfo.password = md5(req.body.password);
-
-
-    console.log(lo_userInfo);
-
 
 
     userModel.update({account: lo_userInfo.account}, {$set: lo_userInfo}, function (err) {
@@ -113,3 +108,84 @@ module.exports.userPassword = function (req, res, next) {
         }
     });
 };
+
+
+module.exports.userCheckout = function (req, res, next) {
+
+    let lo_product = req.body.item;
+    let ls_purchaser = req.body.purchaser;
+    let lb_isSave = false;
+
+    for (let i = 0; i < lo_product.length; i++) {
+        let ls_productName = lo_product[i].name;
+        let ls_productPrice = lo_product[i].price;
+        let ls_productInfo = lo_product[i].info;
+        let ls_productPicture = lo_product[i].picture;
+        let ls_productImageType = lo_product[i].imageType;
+        let ls_productAmount = lo_product[i].count;
+
+        let lo_productItems = {
+            name: ls_productName,
+            price: ls_productPrice,
+            info: ls_productInfo,
+            picture: ls_productPicture,
+            imageType: ls_productImageType,
+            amount: ls_productAmount,
+            purchaser: ls_purchaser,
+        };
+
+        let lo_order = new orderModel(lo_productItems);
+        lo_order.save(function (err) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            lb_isSave = true;
+            // console.log(isSave);
+        });
+    }
+
+    if (lb_isSave) {
+        res.send({
+            "success": true,
+            "message": "結帳成功"
+        });
+    }
+};
+
+
+module.exports.userOrder = function (req, res, next) {
+
+    res.render('order', {
+        title: 'hello'
+    });
+    //
+    //
+    // let ls_userId = req.params.id;
+    //
+    // userModel.find({_id: ls_userId}, (err, people) => {
+    //
+    //     if (err) {
+    //         return res.status(500).send(err);
+    //
+    //         // 資料庫搜尋，如果有找到資料，代表有此帳號
+    //     } else if (Object.keys(people).length !== 0) {
+    //
+    //         let lo_userInfo = people[0];
+    //
+    //         res.render('userEdit', {
+    //             id: lo_userInfo._id,
+    //             account: lo_userInfo.account,
+    //             password: lo_userInfo.password,
+    //             name: lo_userInfo.name,
+    //             birthday: lo_userInfo.birthday,
+    //             tel1: lo_userInfo.tel[0],
+    //             tel2: lo_userInfo.tel[1],
+    //         });
+    //     }
+    // });
+};
+
+
+
+
+

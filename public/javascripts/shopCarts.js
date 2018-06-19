@@ -1,5 +1,3 @@
-
-
 let vm = new Vue({
     el: '#cart-app',
     data: {
@@ -157,6 +155,25 @@ let vm = new Vue({
                 .then((respose) => {
                     this.items = respose.data;
                 });
+        },
+
+        // 結帳
+        checkout() {
+
+
+            let lo_carts = {};
+            lo_carts.item = this.carts;
+            lo_carts.purchaser = $('input[name="userId"]').val();
+
+            let self = this;
+            $.post("/user/checkout", lo_carts, function (data) {
+
+                if (data.message === '結帳成功') {
+                    // self.carts = [];
+                    alert(data.message);
+
+                }
+            });
         }
     }
 });

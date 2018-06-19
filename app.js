@@ -12,9 +12,6 @@ let mongoose = require('mongoose');
 let http = require('http');
 
 
-
-
-
 // 導入路徑執行檔
 let indexRouter = require('./routes/index');
 let signupRouter = require('./routes/signup');
@@ -43,19 +40,21 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());   //json格式
+// app.use(bodyParser.urlencoded({extended: true}));  //url編碼處理
 
 app.use(session({
     secret: 'Hello',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 300 * 1000 } //5分鐘到期
+    cookie: {maxAge: 300 * 1000} //5分鐘到期
 }));
 
 
@@ -63,7 +62,6 @@ app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
-
 
 
 // catch 404 and forward to error handler

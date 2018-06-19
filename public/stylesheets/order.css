@@ -2,7 +2,7 @@
     border: 1px solid #ccc;
 }
 
-.login, .userEdit {
+.login {
     margin-top: 150px;
 }
 
@@ -14,14 +14,4 @@
 .container > h1 {
     text-align: center;
     margin-bottom: 50px;
-}
-
-.cancel-padding {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-
-#dialog {
-    display: none;
 }

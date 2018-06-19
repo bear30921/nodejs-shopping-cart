@@ -18,5 +18,18 @@ router.post('/password', userController.userPassword);
 
 
 
+// 結帳
+router.post('/checkout', userController.userCheckout);
+
+// 購買紀錄
+router.get('/order/:id', userController.userOrder);
+
+
+
+
+
+
+
+
 
 module.exports = router;

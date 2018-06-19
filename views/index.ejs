@@ -21,7 +21,10 @@
           <a class="navbar-brand" href="#">購物商城</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="/user/order/<%= id %>"><span class="glyphicon glyphicon-shopping-cart"></span>購物紀錄</a></li>
           <li><a href="/user/edit/<%= id %>"><span class="glyphicon glyphicon-user"></span>會員修改</a></li>
+          <li><input type="hidden" name="userId" value="<%= id %>"></li>
+
         </ul>
       </div>
     </nav>
@@ -87,6 +90,10 @@
           </ul>
           <hr>
           <p>小計： <span>${{ amount }}</span></p>
+          <p>
+            <button type="button" class="btn btn-primary" @click="checkout">結帳</button>
+          </p>
+
         </div>
 
       </div>
@@ -98,6 +105,7 @@
   <!-- /.container -->
   <script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/javascripts/jquery.js"></script>
   <script src="/javascripts/shopCarts.js"></script>
 
 </body>
