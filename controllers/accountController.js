@@ -1,9 +1,10 @@
 let userModel = require('../models/userModel');
+let md5 = require('md5');
 
 module.exports.accountCheck = function (req, res, next) {
 
     let ls_userAccount = req.body.account;
-    let ls_userPassword = req.body.password;
+    let ls_userPassword = md5(req.body.password);
     let lb_checkAccount = false;
 
 

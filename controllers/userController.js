@@ -1,4 +1,5 @@
 let userModel = require('../models/userModel');
+let md5 = require('md5');
 
 
 module.exports.userEdit = function (req, res, next) {
@@ -59,7 +60,7 @@ module.exports.userPasswordCheck = function (req, res, next) {
     // 取得基本資料
 
     let ls_userId = req.body.id;
-    let ls_userPasswordOld = req.body.passwordOld;
+    let ls_userPasswordOld = md5(req.body.passwordOld);
 
     userModel.find({_id: ls_userId}, (err, people) => {
         if (err) {
@@ -92,7 +93,7 @@ module.exports.userPassword = function (req, res, next) {
     // 取得基本資料
     let lo_userInfo = {};
     lo_userInfo.account = req.body.account;
-    lo_userInfo.password = req.body.password;
+    lo_userInfo.password = md5(req.body.password);
 
 
     console.log(lo_userInfo);
