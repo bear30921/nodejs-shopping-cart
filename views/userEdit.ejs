@@ -63,13 +63,13 @@
         </div>
         <div class="form-group cancel-padding">
             <label for="passwordNew">新密碼</label>
-            <input type="password" class="form-control" id="passwordNew" name="passwordNew" placeholder="請輸入密碼...">
+            <input type="password" class="form-control" id="passwordNew" name="passwordNew" placeholder="請輸入密碼..." v-model="newPassword">
         </div>
         <div class="form-group cancel-padding">
             <label for="passwordConfirm">確認密碼</label>
-            <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="請輸入密碼...">
+            <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="請輸入密碼..." v-model="confirmPassword">
         </div>
-        <button type="button" class="btn btn-primary">確定</button>
+        <button type="button" class="btn btn-primary" @click="changePassword">確定</button>
     </div>
 </div>
 

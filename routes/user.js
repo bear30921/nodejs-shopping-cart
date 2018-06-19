@@ -13,6 +13,9 @@ router.post('/edit', userController.userUpdate);
 // 輸入舊密碼進行檢查
 router.post('/check', userController.userPasswordCheck);
 
+// 更新密碼
+router.post('/password', userController.userPassword);
+
 
 
 

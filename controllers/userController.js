@@ -84,3 +84,31 @@ module.exports.userPasswordCheck = function (req, res, next) {
         }
     });
 };
+
+
+
+
+module.exports.userPassword = function (req, res, next) {
+    // 取得基本資料
+    let lo_userInfo = {};
+    lo_userInfo.account = req.body.account;
+    lo_userInfo.password = req.body.password;
+
+
+    console.log(lo_userInfo);
+
+
+
+    userModel.update({account: lo_userInfo.account}, {$set: lo_userInfo}, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(
+                {
+                    "success": true,
+                    "message": "密碼更新成功"
+                }
+            );
+        }
+    });
+};
