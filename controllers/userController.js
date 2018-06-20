@@ -4,30 +4,34 @@ let md5 = require('md5');
 
 
 module.exports.index = function (req, res, next) {
-    let ls_userId = req.params.id;
 
-    userModel.find({_id: ls_userId}, (err, people) => {
+    if (req.session.account === undefined && req.session.password === undefined) {
+        res.redirect('/login');
+    } else {
 
-        if (err) {
-            return res.status(500).send(err);
+        let ls_userId = req.params.id;
+        userModel.find({_id: ls_userId}, (err, people) => {
 
-            // 資料庫搜尋，如果有找到資料，代表有此帳號
-        } else if (Object.keys(people).length !== 0) {
+            if (err) {
+                return res.status(500).send(err);
 
-            let lo_userInfo = people[0];
+                // 資料庫搜尋，如果有找到資料，代表有此帳號
+            } else if (Object.keys(people).length !== 0) {
 
-            res.render('userEdit', {
-                id: lo_userInfo._id,
-                account: lo_userInfo.account,
-                password: lo_userInfo.password,
-                name: lo_userInfo.name,
-                birthday: lo_userInfo.birthday,
-                tel1: lo_userInfo.tel[0],
-                tel2: lo_userInfo.tel[1],
-            });
-        }
-    });
+                let lo_userInfo = people[0];
 
+                res.render('userEdit', {
+                    id: lo_userInfo._id,
+                    account: lo_userInfo.account,
+                    password: lo_userInfo.password,
+                    name: lo_userInfo.name,
+                    birthday: lo_userInfo.birthday,
+                    tel1: lo_userInfo.tel[0],
+                    tel2: lo_userInfo.tel[1],
+                });
+            }
+        });
+    }
 };
 
 
@@ -154,24 +158,25 @@ module.exports.userCheckout = function (req, res, next) {
 
 module.exports.userOrder = function (req, res, next) {
 
+    if (req.session.account === undefined && req.session.password === undefined) {
+        res.redirect('/login');
 
+    } else {
+        let ls_userId = req.params.id;
 
-    let ls_userId = req.params.id;
+        orderModel.find({purchaser: ls_userId}, (err, product) => {
 
-    orderModel.find({purchaser: ls_userId}, (err, product) => {
+            if (err) {
+                return res.status(500).send(err);
 
-        if (err) {
-            return res.status(500).send(err);
-
-            // 資料庫搜尋，如果有找到資料，代表有購買商品
-        } else if (Object.keys(product).length !== 0) {
-            res.render('order', {
-                product: product
-            });
-        }
-    });
-    //
-
+                // 資料庫搜尋，如果有找到資料，代表有購買商品
+            } else if (Object.keys(product).length !== 0) {
+                res.render('order', {
+                    product: product
+                });
+            }
+        });
+    }
 };
 
 
