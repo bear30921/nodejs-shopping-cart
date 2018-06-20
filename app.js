@@ -16,6 +16,7 @@ let http = require('http');
 let indexRouter = require('./routes/index');
 let signupRouter = require('./routes/signup');
 let loginRouter = require('./routes/login');
+let logoutnRouter = require('./routes/logout');
 let userRouter = require('./routes/user');
 let app = express();
 
@@ -61,6 +62,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutnRouter);
 app.use('/user', userRouter);
 
 
