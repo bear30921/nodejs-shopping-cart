@@ -15,7 +15,7 @@ let vm = new Vue({
             lo_info.password = ls_password;
             // 發一個請求
             $.post("/login", lo_info, function (data) {
-                if (data.message === '登入成功') {
+                if (data.success) {
                     window.location.pathname = '/';
                 } else {
                     // 登入失敗回饋錯誤資訊

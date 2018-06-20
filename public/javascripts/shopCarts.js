@@ -168,7 +168,7 @@ let vm = new Vue({
             let self = this;
             $.post("/user/checkout", lo_carts, function (data) {
 
-                if (data.message === '結帳成功') {
+                if (data.success) {
                     self.carts = [];
                     alert(data.message);
                 }

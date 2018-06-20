@@ -30,18 +30,12 @@
                     <input type="password" class="password form-control" id="password" v-model="password" placeholder="請輸入密碼...">
                 </div>
             </div>
-            <!--<div class="form-group">-->
-            <!--<div class="col-sm-offset-2 col-sm-10">-->
-            <!--<div class="checkbox">-->
-            <!--<label>-->
-            <!--<input type="checkbox"> Remember me-->
-            <!--</label>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
+                    <select name="translation" class="signIn btn btn-default">
+                        <option value="volvo">中文</option>
+                        <option value="saab">英文</option>
+                    </select>
                     <button type="button" class="signIn btn btn-default" @click="signIn">Sign in</button>
                 </div>
             </div>

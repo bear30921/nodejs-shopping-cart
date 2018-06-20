@@ -29,7 +29,7 @@ let vm = new Vue({
 
             // 發一個請求，驗證資料
             $.post("/signup", lo_info, function (data) {
-                if (data.message === '註冊成功') {
+                if (data.success) {
                     window.location.pathname = '/';
                 } else {
                     // 註冊失敗回饋錯誤資訊
