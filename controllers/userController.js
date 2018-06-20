@@ -114,7 +114,7 @@ module.exports.userCheckout = function (req, res, next) {
 
     let lo_product = req.body.item;
     let ls_purchaser = req.body.purchaser;
-    let lb_isSave = false;
+    let ln_productIndex = 0;
 
     for (let i = 0; i < lo_product.length; i++) {
         let ls_productName = lo_product[i].name;
@@ -138,16 +138,15 @@ module.exports.userCheckout = function (req, res, next) {
         lo_order.save(function (err) {
             if (err) {
                 return res.status(500).send(err);
+            } else {
+                ln_productIndex++;
+                if (ln_productIndex === lo_product.length) {
+                    res.send({
+                        "success": true,
+                        "message": "結帳成功"
+                    });
+                }
             }
-            lb_isSave = true;
-            // console.log(isSave);
-        });
-    }
-
-    if (lb_isSave) {
-        res.send({
-            "success": true,
-            "message": "結帳成功"
         });
     }
 };
@@ -155,34 +154,24 @@ module.exports.userCheckout = function (req, res, next) {
 
 module.exports.userOrder = function (req, res, next) {
 
-    res.render('order', {
-        title: 'hello'
+
+
+    let ls_userId = req.params.id;
+
+    orderModel.find({purchaser: ls_userId}, (err, product) => {
+
+        if (err) {
+            return res.status(500).send(err);
+
+            // 資料庫搜尋，如果有找到資料，代表有購買商品
+        } else if (Object.keys(product).length !== 0) {
+            res.render('order', {
+                product: product
+            });
+        }
     });
     //
-    //
-    // let ls_userId = req.params.id;
-    //
-    // userModel.find({_id: ls_userId}, (err, people) => {
-    //
-    //     if (err) {
-    //         return res.status(500).send(err);
-    //
-    //         // 資料庫搜尋，如果有找到資料，代表有此帳號
-    //     } else if (Object.keys(people).length !== 0) {
-    //
-    //         let lo_userInfo = people[0];
-    //
-    //         res.render('userEdit', {
-    //             id: lo_userInfo._id,
-    //             account: lo_userInfo.account,
-    //             password: lo_userInfo.password,
-    //             name: lo_userInfo.name,
-    //             birthday: lo_userInfo.birthday,
-    //             tel1: lo_userInfo.tel[0],
-    //             tel2: lo_userInfo.tel[1],
-    //         });
-    //     }
-    // });
+
 };
 
 
