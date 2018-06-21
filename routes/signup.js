@@ -5,7 +5,16 @@ let signupController = require('../controllers/signupController');
 
 
 
-router.get('/', signupController.index);
+let checkLogin = function (req, res, next) {
+    if (req.session.account && req.session.password) {
+        res.redirect('/');
+    } else {
+        next();
+    }
+};
+
+
+router.get('/', checkLogin, signupController.index);
 
 router.post('/', signupController.signup);
 

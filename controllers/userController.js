@@ -5,34 +5,31 @@ let md5 = require('md5');
 
 module.exports.index = function (req, res, next) {
 
-    if (req.session.account === undefined && req.session.password === undefined) {
-        res.redirect('/login');
-    } else {
 
-        let ls_userId = req.session.identity;
-        // let ls_userId = req.params.id;
+    let ls_userId = req.session.identity;
+    // let ls_userId = req.params.id;
 
-        userModel.findOne({_id: ls_userId}, (err, people) => {
+    userModel.findOne({_id: ls_userId}, (err, people) => {
 
-            if (err) {
-                return res.status(500).send(err);
+        if (err) {
+            return res.status(500).send(err);
 
-                // 資料庫搜尋，如果有找到資料，代表有此帳號
-            } else if (Object.keys(people).length !== 0) {
+            // 資料庫搜尋，如果有找到資料，代表有此帳號
+        } else if (Object.keys(people).length !== 0) {
 
 
-                res.render('userEdit', {
-                    id: people._id,
-                    account: people.account,
-                    password: people.password,
-                    name: people.name,
-                    birthday: people.birthday,
-                    tel1: people.tel[0],
-                    tel2: people.tel[1],
-                });
-            }
-        });
-    }
+            res.render('userEdit', {
+                id: people._id,
+                account: people.account,
+                password: people.password,
+                name: people.name,
+                birthday: people.birthday,
+                tel1: people.tel[0],
+                tel2: people.tel[1],
+            });
+        }
+    });
+
 };
 
 

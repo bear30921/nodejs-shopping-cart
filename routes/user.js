@@ -3,8 +3,16 @@ let router = express.Router();
 let userController = require('../controllers/userController');
 
 
+let checkLogin = function (req, res, next) {
+    if (req.session.account === undefined && req.session.password === undefined) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+};
+
 // 取得使用者資訊
-router.get('/edit', userController.index);
+router.get('/edit', checkLogin, userController.index);
 // router.get('/edit/:id', userController.index);
 
 
@@ -18,20 +26,12 @@ router.post('/check', userController.userPasswordCheck);
 router.post('/password', userController.userPassword);
 
 
-
 // 結帳
 router.post('/checkout', userController.userCheckout);
 
 // 購買紀錄
-router.get('/order', userController.userOrder);
+router.get('/order', checkLogin, userController.userOrder);
 // router.get('/order/:id', userController.userOrder);
-
-
-
-
-
-
-
 
 
 module.exports = router;

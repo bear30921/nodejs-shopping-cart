@@ -3,7 +3,15 @@ let router = express.Router();
 let loginController = require('../controllers/loginController');
 
 
-router.get('/', loginController.index);
+let checkLogin = function (req, res, next) {
+    if (req.session.account && req.session.password) {
+        res.redirect('/');
+    } else {
+        next();
+    }
+};
+
+router.get('/', checkLogin, loginController.index);
 
 router.post('/', loginController.login);
 
