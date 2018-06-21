@@ -121,20 +121,14 @@ module.exports.userCheckout = function (req, res, next) {
     let ln_productIndex = 0;
 
     for (let i = 0; i < lo_product.length; i++) {
-        let ls_productName = lo_product[i].name;
-        let ls_productPrice = lo_product[i].price;
-        let ls_productInfo = lo_product[i].info;
-        let ls_productPicture = lo_product[i].picture;
-        let ls_productImageType = lo_product[i].imageType;
-        let ls_productAmount = lo_product[i].count;
 
         let lo_productItems = {
-            name: ls_productName,
-            price: ls_productPrice,
-            info: ls_productInfo,
-            picture: ls_productPicture,
-            imageType: ls_productImageType,
-            amount: ls_productAmount,
+            name: lo_product[i].name,
+            price: lo_product[i].price,
+            info: lo_product[i].info,
+            picture: lo_product[i].picture,
+            imageType: lo_product[i].imageType,
+            amount: lo_product[i].count,
             purchaser: ls_purchaser,
         };
 

@@ -10,9 +10,6 @@ module.exports.index = function (req, res, next) {
 
         let ls_userAccount = req.session.account;
 
-
-
-
         userModel.findOne({ account: ls_userAccount }, (err, people) => {
 
             if (err) {

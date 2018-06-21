@@ -44,7 +44,7 @@ module.exports.signup = function (req, res, next) {
             req.session.account = req.body.account;
             req.session.password = req.body.password;
 
-            console.log(md5('hello'));
+
             res.send(
                 {
                     "success": true,

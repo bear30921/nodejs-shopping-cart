@@ -10,22 +10,15 @@ let vm = new Vue({
     },
     methods: {
         signup() {
-            // 收集使用者輸入的帳密
+            // 收集使用者輸入的資料
             let lo_info = {};
-            let ls_account = this.account;
-            let ls_password = this.password;
-            let ls_name = this.name;
-            let ls_birthday = this.birthday;
-            let ls_tel1 = this.tel1;
-            let ls_tel2 = this.tel2;
 
-            // 把收集好的資料放置一個物件容器
-            lo_info.account = ls_account;
-            lo_info.password = ls_password;
-            lo_info.name = ls_name;
-            lo_info.birthday = ls_birthday;
-            lo_info.tel1 = ls_tel1;
-            lo_info.tel2 = ls_tel2;
+            lo_info.account = this.account;
+            lo_info.password = this.password;
+            lo_info.name = this.name;
+            lo_info.birthday = this.birthday;
+            lo_info.tel1 = this.tel1;
+            lo_info.tel2 = this.tel2;
 
             // 發一個請求，驗證資料
             $.post("/signup", lo_info, function (data) {
