@@ -161,7 +161,6 @@ let vm = new Vue({
             if (this.carts.length > 0) {
                 let lo_carts = {};
                 lo_carts.item = this.carts;
-                lo_carts.purchaser = $('input[name="userId"]').val();
 
                 let self = this;
                 $.post("/user/checkout", lo_carts, function (data) {

@@ -2,7 +2,6 @@ let userModel = require('../models/userModel');
 let md5 = require('md5');
 
 
-
 module.exports.index = function (req, res, next) {
     res.render('signup', {title: '你好喔'});
 };
@@ -37,20 +36,26 @@ module.exports.signup = function (req, res, next) {
             lo_user.save(function (err) {
                 if (err) {
                     return res.status(500).send(err);
+                } else {
+                    userModel.findOne({account: lo_userInfo.account}, (err, people) => {
+                        if (err) {
+                            return res.status(500).send(err);
+                        } else {
+                            // 註冊完成紀錄session，代表登入狀態
+                            req.session.identity = people._id;
+                            req.session.account = req.body.account;
+                            req.session.password = req.body.password;
+
+                            res.send(
+                                {
+                                    "success": true,
+                                    "message": "註冊成功"
+                                }
+                            )
+                        }
+                    });
                 }
             });
-
-            // 註冊完成紀錄session，代表登入狀態
-            req.session.account = req.body.account;
-            req.session.password = req.body.password;
-
-
-            res.send(
-                {
-                    "success": true,
-                    "message": "註冊成功"
-                }
-            )
         } else {
             //  此帳號已經存在
             res.send(

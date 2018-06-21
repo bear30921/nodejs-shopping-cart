@@ -40,6 +40,7 @@ module.exports.login = function (req, res, next) {
             )
             // 第一次登入紀錄session
         } else if (lb_checkAccount && req.body.account !== req.session.account && req.body.password !== req.session.password) {
+            req.session.identity = people[0]._id;
             req.session.account = req.body.account;
             req.session.password = req.body.password;
             res.send(

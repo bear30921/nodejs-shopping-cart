@@ -8,32 +8,21 @@ module.exports.index = function (req, res, next) {
 
     } else {
 
-        let ls_userAccount = req.session.account;
+        res.render('index');
 
-        userModel.findOne({ account: ls_userAccount }, (err, people) => {
+        // let ls_userAccount = req.session.account;
 
-            if (err) {
-                return res.status(500).send(err);
-
-                // 找尋當前登入使用者的id
-            } else {
-                let ls_userId = people._id;
-                res.render('index', {id: ls_userId});
-            }
-        });
-
-        // userModel.find({account: ls_userAccount}, (err, people) => {
+        // userModel.findOne({ account: ls_userAccount }, (err, people) => {
+        //
         //     if (err) {
         //         return res.status(500).send(err);
         //
-        //        // 找尋當前登入使用者的id
+        //         // 找尋當前登入使用者的id
         //     } else {
-        //         let ls_userId = people[0]._id;
+        //         let ls_userId = people._id;
         //         res.render('index', {id: ls_userId});
         //     }
         // });
-
-
 
     }
 };

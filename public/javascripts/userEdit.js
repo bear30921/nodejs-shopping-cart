@@ -16,7 +16,7 @@ let vm = new Vue({
             // 收集使用者輸入的資料
             let lo_info = {};
 
-            lo_info.id = document.getElementById('userId').value;
+            // lo_info.id = document.getElementById('userId').value;
             lo_info.account = document.getElementById('account').value;
             lo_info.password = document.getElementById('password').value;
             lo_info.name = document.getElementById('name').value;
@@ -41,7 +41,7 @@ let vm = new Vue({
         checkPassword(event) {
 
             let lo_info = {};
-            lo_info.id = document.getElementById('userId').value;
+            // lo_info.id = document.getElementById('userId').value;
             lo_info.passwordOld = event.currentTarget.value;
 
 

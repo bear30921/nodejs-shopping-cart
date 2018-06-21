@@ -9,8 +9,10 @@ module.exports.index = function (req, res, next) {
         res.redirect('/login');
     } else {
 
-        let ls_userId = req.params.id;
-        userModel.find({_id: ls_userId}, (err, people) => {
+        let ls_userId = req.session.identity;
+        // let ls_userId = req.params.id;
+
+        userModel.findOne({_id: ls_userId}, (err, people) => {
 
             if (err) {
                 return res.status(500).send(err);
@@ -18,16 +20,15 @@ module.exports.index = function (req, res, next) {
                 // 資料庫搜尋，如果有找到資料，代表有此帳號
             } else if (Object.keys(people).length !== 0) {
 
-                let lo_userInfo = people[0];
 
                 res.render('userEdit', {
-                    id: lo_userInfo._id,
-                    account: lo_userInfo.account,
-                    password: lo_userInfo.password,
-                    name: lo_userInfo.name,
-                    birthday: lo_userInfo.birthday,
-                    tel1: lo_userInfo.tel[0],
-                    tel2: lo_userInfo.tel[1],
+                    id: people._id,
+                    account: people.account,
+                    password: people.password,
+                    name: people.name,
+                    birthday: people.birthday,
+                    tel1: people.tel[0],
+                    tel2: people.tel[1],
                 });
             }
         });
@@ -38,7 +39,7 @@ module.exports.index = function (req, res, next) {
 module.exports.userUpdate = function (req, res, next) {
     // 取得基本資料
     let lo_userInfo = {};
-    lo_userInfo.id = req.body.id;
+    lo_userInfo.id = req.session.identity;
     lo_userInfo.name = req.body.name;
     lo_userInfo.birthday = req.body.birthday;
     lo_userInfo.tel = [];
@@ -64,7 +65,7 @@ module.exports.userUpdate = function (req, res, next) {
 module.exports.userPasswordCheck = function (req, res, next) {
     // 取得基本資料
 
-    let ls_userId = req.body.id;
+    let ls_userId = req.session.identity;
     let ls_userPasswordOld = md5(req.body.passwordOld);
 
     userModel.find({_id: ls_userId}, (err, people) => {
@@ -117,7 +118,7 @@ module.exports.userPassword = function (req, res, next) {
 module.exports.userCheckout = function (req, res, next) {
 
     let lo_product = req.body.item;
-    let ls_purchaser = req.body.purchaser;
+    let ls_purchaser = req.session.identity;
     let ln_productIndex = 0;
 
     for (let i = 0; i < lo_product.length; i++) {
@@ -156,7 +157,8 @@ module.exports.userOrder = function (req, res, next) {
         res.redirect('/login');
 
     } else {
-        let ls_userId = req.params.id;
+        let ls_userId = req.session.identity;
+        // let ls_userId = req.params.id;
 
         orderModel.find({purchaser: ls_userId}, (err, product) => {
 
@@ -164,7 +166,7 @@ module.exports.userOrder = function (req, res, next) {
                 return res.status(500).send(err);
 
                 // 資料庫搜尋，如果有找到資料，代表有購買商品
-            } else if (Object.keys(product).length !== 0) {
+            } else {
                 res.render('order', {
                     product: product
                 });
