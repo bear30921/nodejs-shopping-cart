@@ -10,6 +10,7 @@ let bodyParser = require('body-parser');
 let session = require('express-session');
 let mongoose = require('mongoose');
 let http = require('http');
+let i18n = require("i18n");
 
 
 // 導入路徑執行檔
@@ -18,15 +19,11 @@ let signupRouter = require('./routes/signup');
 let loginRouter = require('./routes/login');
 let logoutnRouter = require('./routes/logout');
 let userRouter = require('./routes/user');
+let languageRouter = require('./routes/language');
 let app = express();
 
 
-// 設定連線
-app.set('port', '8080');
-let server = http.createServer(app);
 
-// 啟動伺服器
-server.listen(8080);
 
 
 // 連接mongoDB資料庫
@@ -51,6 +48,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());   //json格式
 // app.use(bodyParser.urlencoded({extended: true}));  //url編碼處理
 
+
+
+i18n.configure({
+    locales:['en', 'zh-tw'],
+    directory: path.join(__dirname, 'locales'),
+    cookie: 'locale',
+    defaultLocale: 'en'
+});
+
+app.use(i18n.init);
+
+
 app.use(session({
     secret: 'Hello',
     resave: false,
@@ -64,6 +73,8 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutnRouter);
 app.use('/user', userRouter);
+app.use('/language', languageRouter);
+
 
 
 // catch 404 and forward to error handler
@@ -81,5 +92,13 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+// 設定連線
+app.set('port', '8080');
+let server = http.createServer(app);
+
+// 啟動伺服器
+server.listen(8080);
+
 
 module.exports = app;
