@@ -93,8 +93,7 @@ let vm = new Vue({
                     }
                 }
 
-                // console.log("=========================");
-                // console.log(la_totalItem);
+
                 return la_totalItem;
 
             }
