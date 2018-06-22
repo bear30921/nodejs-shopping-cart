@@ -20,15 +20,20 @@ let vm = new Vue({
             lo_info.tel1 = this.tel1;
             lo_info.tel2 = this.tel2;
 
-            // 發一個請求，驗證資料
-            $.post("/signup", lo_info, function (data) {
-                if (data.success) {
-                    window.location.pathname = '/';
-                } else {
-                    // 註冊失敗回饋錯誤資訊
-                    alert(data.message)
-                }
-            });
+            if (this.account !=='' && this.password !== '') {
+                // 發一個請求，驗證資料
+                $.post("/signup", lo_info, function (data) {
+                    if (data.success) {
+                        window.location.pathname = '/';
+                    } else {
+                        // 註冊失敗回饋錯誤資訊
+                        alert(data.message);
+                    }
+                });
+            } else {
+                alert('請輸入帳號密碼');
+            }
+
         }
     }
 });

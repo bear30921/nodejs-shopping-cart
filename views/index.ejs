@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>VUEJS 實戰 - 5倍商城</title>
+  <title><%= __('web title') %></title>
   <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="/stylesheets/blog-home.css" rel="stylesheet">
 </head>
@@ -18,12 +18,12 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">購物商城</a>
+          <a class="navbar-brand" href="#"><%= __('web name') %></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/user/order"><span class="glyphicon glyphicon-shopping-cart"></span>購物紀錄</a></li>
-          <li><a href="/user/edit"><span class="glyphicon glyphicon-user"></span>會員修改</a></li>
-          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+          <li><a href="/user/order"><span class="glyphicon glyphicon-shopping-cart"></span><%= __('order') %></a></li>
+          <li><a href="/user/edit"><span class="glyphicon glyphicon-user"></span><%= __('profile') %></a></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span><%= __('sign out') %></a></li>
 
 
         </ul>
@@ -31,14 +31,14 @@
     </nav>
     <div class="row">
       <div class="col-md-8">
-        <h1 class="page-header">VUEJS 實戰 - <small>5倍商城</small></h1>
+        <h1 class="page-header"><%= __('web title') %></small></h1>
 
         <div class="item" v-for="product in filterProduct(type)">
           <h2>{{ product.name }}:index {{ product.index }}</h2>
           <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">
           <p>{{ product.info }}</p>
           <p class="item-price ">${{ product.price }}</p>
-          <a class="btn btn-primary " @click.prevent="addItem(product)" href="#">放入購物車 <span class="glyphicon glyphicon-chevron-right "></span></a>
+          <a class="btn btn-primary " @click.prevent="addItem(product)" href="#"><%= __('add to cart') %> <span class="glyphicon glyphicon-chevron-right "></span></a>
         </div>
 
         <hr>
@@ -78,7 +78,7 @@
         <hr>
 
         <div class="well cart">
-          <h4>購物車</h4>
+          <h4><%= __('carts') %></h4>
 
           <ul class="itemsInCart ">
             <li v-for="cartProduct in carts" :key="cartProduct.index">
@@ -90,9 +90,9 @@
             </li>
           </ul>
           <hr>
-          <p>小計： <span>${{ amount }}</span></p>
+          <p><%= __('amount') %>： <span>${{ amount }}</span></p>
           <p>
-            <button type="button" class="btn btn-primary" @click="checkout">結帳</button>
+            <button type="button" class="btn btn-primary" @click="checkout"><%= __('checkout') %></button>
           </p>
 
         </div>

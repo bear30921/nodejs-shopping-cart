@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>會員註冊</title>
+    <title><%= __('registration page') %></title>
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/signup.css" rel="stylesheet">
 </head>
@@ -16,35 +16,35 @@
 <!-- Page Content -->
 <div class="login" id="login">
     <div class="container">
-        <h1>會員註冊</h1>
+        <h1><%= __('registration page') %></h1>
         <form method="post">
             <div class="form-row">
                 <div class="form-group col-md-6 cancel-padding">
-                    <label for="account">帳號</label>
-                    <input type="text" class="form-control" id="account" name="account" v-model="account" placeholder="請輸入帳號...">
+                    <label for="account"><%= __('account') %></label>
+                    <input type="text" class="form-control" id="account" name="account" v-model="account" placeholder="<%= __('account placeholder') %>">
                 </div>
                 <div class="form-group col-md-6 cancel-padding">
-                    <label for="password">密碼</label>
-                    <input type="password" class="form-control" id="password" name="password" v-model="password" placeholder="請輸入密碼...">
+                    <label for="password"><%= __('password') %></label>
+                    <input type="password" class="form-control" id="password" name="password" v-model="password" placeholder="<%= __('password placeholder') %>">
                 </div>
             </div>
             <div class="form-group">
-                <label for="name">姓名</label>
-                <input type="text" class="form-control" id="name" name="name" v-model="name" placeholder="請輸入姓名...">
+                <label for="name"><%= __('name') %></label>
+                <input type="text" class="form-control" id="name" name="name" v-model="name" placeholder="<%= __('name placeholder') %>">
             </div>
             <div class="form-group">
-                <label for="birthday">生日</label>
-                <input type="text" class="form-control" id="birthday" name="birthday" v-model="birthday" placeholder="生日格式:1990/10/10">
+                <label for="birthday"><%= __('birthday') %></label>
+                <input type="text" class="form-control" id="birthday" name="birthday" v-model="birthday" placeholder="1990/10/10">
             </div>
             <div class="form-group">
-                <label for="tel1">電話1</label>
-                <input type="text" class="form-control" id="tel1" name="tel1" v-model="tel1" placeholder="請輸入電話...">
+                <label for="tel1"><%= __('tel1') %></label>
+                <input type="text" class="form-control" id="tel1" name="tel1" v-model="tel1" placeholder="<%= __('tel placeholder') %>">
             </div>
             <div class="form-group">
-                <label for="tel2">電話2</label>
-                <input type="text" class="form-control" id="tel2" name="tel2" v-model="tel2" placeholder="請輸入電話...">
+                <label for="tel2"><%= __('tel2') %></label>
+                <input type="text" class="form-control" id="tel2" name="tel2" v-model="tel2" placeholder="<%= __('tel placeholder') %>">
             </div>
-            <button type="button" class="btn btn-primary" @click="signup">註冊</button>
+            <button type="button" class="btn btn-primary" @click="signup"><%= __('sign up') %></button>
         </form>
     </div>
 </div>

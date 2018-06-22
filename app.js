@@ -54,7 +54,7 @@ i18n.configure({
     locales:['en', 'zh-tw'],
     directory: path.join(__dirname, 'locales'),
     cookie: 'locale',
-    defaultLocale: 'en'
+    defaultLocale: 'zh-tw'
 });
 
 app.use(i18n.init);

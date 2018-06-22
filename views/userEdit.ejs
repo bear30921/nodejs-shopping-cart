@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>會員修改</title>
+    <title><%= __('profile page') %></title>
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/signup.css" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -17,58 +17,58 @@
 <!-- Page Content -->
 <div class="userEdit" id="userEdit">
     <div class="container">
-        <h1>會員修改</h1>
+        <h1><%= __('profile page') %></h1>
         <form method="post">
             <div class="form-row">
 
                 <div class="form-group cancel-padding">
-                    <label for="account">帳號</label>
-                    <input type="text" class="form-control" id="account" name="account" placeholder="請輸入帳號..." value="<%= account %>" readonly>
+                    <label for="account"><%= __('account') %></label>
+                    <input type="text" class="form-control" id="account" name="account" placeholder="<%= __('account placeholder') %>" value="<%= account %>" readonly>
                 </div>
                 <div class="form-group cancel-padding">
-                    <label for="password">密碼</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="請輸入密碼..." value="<%= password %>" readonly>
+                    <label for="password"><%= __('password') %></label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="<%= __('password placeholder') %>" value="<%= password %>" readonly>
                 </div>
                 <div class="form-group cancel-padding">
                     <button type="button" @click="openDialog">
-                        修改密碼
+                        <%= __('change password') %>
                     </button>
                 </div>
             </div>
             <div class="form-group">
-                <label for="name">姓名</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="請輸入姓名..." value="<%= name %>">
+                <label for="name"><%= __('name') %></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="<%= __('name placeholder') %>" value="<%= name %>">
             </div>
             <div class="form-group">
-                <label for="birthday">生日</label>
-                <input type="text" class="form-control" id="birthday" name="birthday" placeholder="生日格式:1990/10/10" value="<%= birthday %>">
+                <label for="birthday"><%= __('birthday') %></label>
+                <input type="text" class="form-control" id="birthday" name="birthday" placeholder="1990/10/10" value="<%= birthday %>">
             </div>
             <div class="form-group">
-                <label for="tel1">電話1</label>
-                <input type="text" class="form-control" id="tel1" name="tel1" placeholder="請輸入電話..." value="<%= tel1 %>">
+                <label for="tel1"><%= __('tel1') %></label>
+                <input type="text" class="form-control" id="tel1" name="tel1" placeholder="<%= __('tel placeholder') %>" value="<%= tel1 %>">
             </div>
             <div class="form-group">
-                <label for="tel2">電話2</label>
-                <input type="text" class="form-control" id="tel2" name="tel2" placeholder="請輸入電話..." value="<%= tel2 %>">
+                <label for="tel2"><%= __('tel2') %></label>
+                <input type="text" class="form-control" id="tel2" name="tel2" placeholder="<%= __('tel placeholder') %>" value="<%= tel2 %>">
             </div>
-            <button type="button" class="btn btn-primary" @click="update">保存</button>
+            <button type="button" class="btn btn-primary" @click="update"><%= __('save') %></button>
         </form>
     </div>
 
-    <div id="dialog" title="變更密碼">
+    <div id="dialog" title="<%= __('change password') %>">
         <div class="form-group cancel-padding">
-            <label for="passwordOld">舊密碼</label><span v-show="check" style="color: red">({{ message }})</span>
-            <input type="password" class="form-control" id="passwordOld" name="passwordOld" placeholder="請輸入密碼..." @change="checkPassword">
+            <label for="passwordOld"><%= __('old password') %></label><span v-show="check" style="color: red">({{ message }})</span>
+            <input type="password" class="form-control" id="passwordOld" name="passwordOld" placeholder="<%= __('password placeholder') %>" @change="checkPassword">
         </div>
         <div class="form-group cancel-padding">
-            <label for="passwordNew">新密碼</label>
-            <input type="password" class="form-control" id="passwordNew" name="passwordNew" placeholder="請輸入密碼..." v-model="newPassword">
+            <label for="passwordNew"><%= __('new password') %></label>
+            <input type="password" class="form-control" id="passwordNew" name="passwordNew" placeholder="<%= __('password placeholder') %>" v-model="newPassword">
         </div>
         <div class="form-group cancel-padding">
-            <label for="passwordConfirm">確認密碼</label>
-            <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="請輸入密碼..." v-model="confirmPassword">
+            <label for="passwordConfirm"><%= __('confirm password') %></label>
+            <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="<%= __('password placeholder') %>" v-model="confirmPassword">
         </div>
-        <button type="button" class="btn btn-primary" @click="changePassword">確定</button>
+        <button type="button" class="btn btn-primary" @click="changePassword"><%= __('update') %></button>
     </div>
 </div>
 
