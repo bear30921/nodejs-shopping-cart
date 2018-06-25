@@ -1,3 +1,75 @@
+// 全域元件建立必須在vue的實體之前
+
+Vue.component('nav-bar', {
+    template: '<nav class="navbar navbar-inverse">\n' +
+    '      <div class="container-fluid">\n' +
+    '        <div class="navbar-header">\n' +
+    '          <a class="navbar-brand" href="#"><%= __(\'web name\') %></a>\n' +
+    '        </div>\n' +
+    '        <ul class="nav navbar-nav navbar-right">\n' +
+    '          <li><a href="/user/order"><span class="glyphicon glyphicon-shopping-cart"></span><%= __(\'order\') %></a></li>\n' +
+    '          <li><a href="/user/edit"><span class="glyphicon glyphicon-user"></span><%= __(\'profile\') %></a></li>\n' +
+    '          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span><%= __(\'sign out\') %></a></li>\n' +
+    '\n' +
+    '\n' +
+    '        </ul>\n' +
+    '      </div>\n' +
+    '    </nav>'
+});
+
+
+Vue.component('product-item', {
+    template: '<div><div class="item" v-for="product in filterProduct(type)">\n' +
+    '          <h2>{{ product.name }}:index {{ product.index }}</h2>\n' +
+    '          <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">\n' +
+    '          <p>{{ product.info }}</p>\n' +
+    '          <p class="item-price ">${{ product.price }}</p>\n' +
+    '          <a class="btn btn-primary " @click.prevent="$emit(\'add-cart\', product)" href="#"><%= __(\'add to cart\') %> <span class="glyphicon glyphicon-chevron-right "></span></a>\n' +
+    '        </div></div>',
+    props: ['filterItems', 'items', 'type', 'beginItem', 'endItem'],
+    methods: {
+        // 顯示商品，搜尋時會篩選符合商品
+        filterProduct(type) {
+
+            if (type === 1) {
+                let la_totalItem = [];
+                for (let i = this.beginItem; i < this.endItem; i++) {
+                    la_totalItem.push(this.items[i]);
+                }
+
+                return la_totalItem;
+            } else if (type === 2) {
+
+                let la_totalItem = [];
+
+
+                for (let i = this.beginItem; i < this.endItem; i++) {
+
+
+                    if (this.filterItems[i] !== undefined) {
+                        la_totalItem.push(this.filterItems[i]);
+                    }
+                }
+
+                return la_totalItem;
+
+            }
+        },
+
+    }
+});
+
+
+
+Vue.component('search-bar', {
+    template: '',
+    props: []
+});
+
+
+
+
+
 let vm = new Vue({
     el: '#cart-app',
     data: {
@@ -52,6 +124,7 @@ let vm = new Vue({
     methods: {
         // 商品增加至購物車
         addItem(product) {
+            console.log('hello');
             let ln_checkCarts = this.carts.indexOf(product);
 
             // 購物車不存在此商品，新增商品
@@ -71,33 +144,6 @@ let vm = new Vue({
             }
         },
 
-        // 顯示商品，搜尋時會篩選符合商品
-        filterProduct(type) {
-            if (type === 1) {
-                let la_totalItem = [];
-                for (let i = this.beginItem; i < this.endItem; i++) {
-                    la_totalItem.push(this.items[i]);
-                }
-
-                return la_totalItem;
-            } else if (type === 2) {
-
-                let la_totalItem = [];
-
-
-                for (let i = this.beginItem; i < this.endItem; i++) {
-
-
-                    if (this.filterItems[i] !== undefined) {
-                        la_totalItem.push(this.filterItems[i]);
-                    }
-                }
-
-
-                return la_totalItem;
-
-            }
-        },
         // 商品搜尋
         search() {
             if (this.searchName !== '') {
