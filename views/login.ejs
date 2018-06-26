@@ -42,8 +42,8 @@
                             <%= __('language') %>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/language/zh-tw" style="display: block; padding-left: 10px;"><%= __('traditional Chinese') %></a>
-                            <a class="dropdown-item" href="/language/en" style="display: block; padding-left: 10px;"><%= __('english') %></a>
+                            <a class="dropdown-item" href="/language/zh-tw" style="display: block; padding-left: 10px;" @click="switchLanguage"><%= __('traditional Chinese') %></a>
+                            <a class="dropdown-item" href="/language/en" style="display: block; padding-left: 10px;" @click="switchLanguage"><%= __('english') %></a>
                         </div>
                     </div>
 

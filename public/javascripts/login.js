@@ -1,6 +1,3 @@
-
-
-
 let vm = new Vue({
     el: '#login',
     data: {
@@ -29,8 +26,13 @@ let vm = new Vue({
             } else {
                 alert('請輸入帳號密碼');
             }
+        },
+        switchLanguage() {
 
+            // 發送一個get請求
+            console.log('language');
         }
+
     }
 });
 

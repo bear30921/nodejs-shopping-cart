@@ -1,5 +1,26 @@
-// 全域元件建立必須在vue的實體之前
+const messages = {
+    en: {
+        message: {
+            hello: 'hello world'
+        }
+    },
+    ja: {
+        message: {
+            hello: 'こんにちは、世界'
+        }
+    }
+};
 
+
+
+// Create VueI18n instance with options
+const i18n = new VueI18n({
+    locale: 'ja', // set locale
+    messages, // set locale messages
+});
+
+
+// 全域元件建立必須在vue的實體之前
 Vue.component('nav-bar', {
     template: '<nav class="navbar navbar-inverse">\n' +
     '      <div class="container-fluid">\n' +
@@ -31,7 +52,6 @@ Vue.component('product-item', {
         // 顯示商品，搜尋時會篩選符合商品
         filterProduct(type) {
 
-            console.log(type);
             if (type === 1) {
                 let la_totalItem = [];
                 for (let i = this.beginItem; i < this.endItem; i++) {
@@ -204,17 +224,20 @@ Vue.component('shopping-cart', {
 
 let vm = new Vue({
     el: '#cart-app',
-    data: {
-        items: [],
-        filterItems: [],
-        searchName: "",
-        pages: "",
-        showItem: "",
-        beginItem: 0,
-        endItem: 10,
-        currentPage: 1,
-        carts: [],
-        type: 1,
+    i18n,
+    data() {
+        return {
+            items: [],
+            filterItems: [],
+            searchName: "",
+            pages: "",
+            showItem: "",
+            beginItem: 0,
+            endItem: 10,
+            currentPage: 1,
+            carts: [],
+            type: 1,
+        };
     },
     mounted() {
         // 載入資料
