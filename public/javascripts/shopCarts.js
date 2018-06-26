@@ -133,8 +133,8 @@ Vue.component('pagination', {
 
 });
 
-
-Vue.component('sear-bar', {
+// 搜尋列
+Vue.component('search-bar', {
     template: '<div class="well ">\n' +
     '          <h4>商品搜尋</h4>\n' +
     '          <div class="input-group ">\n' +
@@ -152,6 +152,55 @@ Vue.component('sear-bar', {
     }
 });
 
+
+// 購物車
+Vue.component('shopping-cart', {
+    template: '<div class="well cart">\n' +
+    '          <h4><%= __(\'carts\') %></h4>\n' +
+    '\n' +
+    '          <ul class="itemsInCart ">\n' +
+    '            <li v-for="cartProduct in carts" :key="cartProduct.index">\n' +
+    '              <div class="cart-item">\n' +
+    '                <div class="cart-title">{{ cartProduct.name }}</div> <span class="price">{{ cartProduct.price }}</span> x\n' +
+    '                <span class="count">{{ cartProduct.count }}</span>\n' +
+    '                <div class="handler"><a href="#" class="cart-btn plus" @click.prevent="increase(cartProduct)">+</a> <a href="#" class="cart-btn minus" @click.prevent="remove(cartProduct)">-</a></div>\n' +
+    '              </div>\n' +
+    '            </li>\n' +
+    '          </ul>\n' +
+    '          <hr>\n' +
+    '          <p><%= __(\'amount\') %>： <span>${{ amount }}</span></p>\n' +
+    '          <p>\n' +
+    '            <button type="button" class="btn btn-primary" @click="checkout"><%= __(\'checkout\') %></button>\n' +
+    '          </p>\n' +
+    '        </div>',
+    props: ['carts'],
+    computed: {
+        // 計算購物車商品總金額
+        amount() {
+            let ln_amount = 0;
+            if (this.carts.length > 0) {
+                for (let i = 0; i < this.carts.length; i++) {
+                    let ln_price = this.carts[i].price;
+                    let ln_number = this.carts[i].count;
+                    let ln_total = ln_price * ln_number;
+                    ln_amount += ln_total;
+                }
+            }
+            return ln_amount;
+        },
+    },
+    methods: {
+        increase(product) {
+            this.$emit('update-increase', product);
+        },
+        remove(product) {
+            this.$emit('update-remove', product);
+        },
+        checkout() {
+            this.$emit('update-checkout');
+        }
+    }
+});
 
 let vm = new Vue({
     el: '#cart-app',
@@ -171,24 +220,6 @@ let vm = new Vue({
         // 載入資料
         this.getProItems();
     },
-    computed: {
-        // 計算購物車商品總金額
-        amount() {
-            let ln_amount = 0;
-            if (this.carts.length > 0) {
-                for (let i = 0; i < this.carts.length; i++) {
-                    let ln_price = this.carts[i].price;
-                    let ln_number = this.carts[i].count;
-                    let ln_total = ln_price * ln_number;
-                    ln_amount += ln_total;
-                }
-            }
-            return ln_amount;
-        },
-
-
-    },
-    watch: {},
     methods: {
         // 商品增加至購物車
         addItem(product) {
@@ -202,15 +233,18 @@ let vm = new Vue({
             }
         },
         //  減少商品數量
-        remove(product) {
+        changeRemove(product) {
             if (product.count === 1 || product.count === undefined) {
                 let ln_cartsIndex = this.carts.indexOf(product);
                 this.carts.splice(ln_cartsIndex, 1);
             } else {
-                product.count--;
+                this.carts.forEach(function (cartProduct) {
+                    if (cartProduct.index === product.index) {
+                        cartProduct.count--;
+                    }
+                });
             }
         },
-
         // 商品搜尋
         changeSearch(str) {
             this.searchName = str;
@@ -238,7 +272,7 @@ let vm = new Vue({
         },
 
         // 結帳
-        checkout() {
+        changeCheckout() {
             if (this.carts.length > 0) {
                 let lo_carts = {};
                 lo_carts.item = this.carts;
@@ -285,6 +319,15 @@ let vm = new Vue({
                 this.beginItem = 0;
                 this.endItem = 10;
             }
+        },
+
+        changeIncrease(product) {
+            // product.count++
+            this.carts.forEach(function (cartProduct) {
+                if (cartProduct.index === product.index) {
+                    cartProduct.count++;
+                }
+            });
         }
     }
 });

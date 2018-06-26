@@ -21,37 +21,13 @@
         <h1 class="page-header"><%= __('web title') %></small></h1>
         <product-item :filter-items="filterItems" :items="items" :type="type" :begin-item="beginItem" :end-item="endItem" @update-add-cart="addItem"></product-item>
         <hr>
-        <!--Pager -->
         <pagination :pages="pages" :items="items" :current-page="currentPage" @update-show-item="chagneShowItem" @update-previous="changePrevious" @update-next="changeNext" @update-switch-page="changeSwitchPage"></pagination>
-
       </div>
-
-      <!-- Blog Sidebar Widgets Column -->
       <div class="col-md-4 ">
-        <sear-bar :search-name="searchName" @update-search="changeSearch"></sear-bar>
+        <search-bar :search-name="searchName" @update-search="changeSearch"></search-bar>
         <hr>
-        <div class="well cart">
-          <h4><%= __('carts') %></h4>
-
-          <ul class="itemsInCart ">
-            <li v-for="cartProduct in carts" :key="cartProduct.index">
-              <div class="cart-item">
-                <div class="cart-title">{{ cartProduct.name }}</div> <span class="price">{{ cartProduct.price }}</span> x
-                <span class="count">{{ cartProduct.count }}</span>
-                <div class="handler"><a href="#" class="cart-btn plus" @click.prevent="cartProduct.count++">+</a> <a href="#" class="cart-btn minus" @click.prevent="remove(cartProduct)">-</a></div>
-              </div>
-            </li>
-          </ul>
-          <hr>
-          <p><%= __('amount') %>： <span>${{ amount }}</span></p>
-          <p>
-            <button type="button" class="btn btn-primary" @click="checkout"><%= __('checkout') %></button>
-          </p>
-
-        </div>
-
+        <shopping-cart :carts="carts" @update-increase="changeIncrease" @update-remove="changeRemove" @update-checkout="changeCheckout"></shopping-cart>
       </div>
-
     </div>
     <!-- /.row -->
 
