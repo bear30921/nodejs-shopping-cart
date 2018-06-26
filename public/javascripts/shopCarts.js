@@ -31,6 +31,7 @@ Vue.component('product-item', {
         // 顯示商品，搜尋時會篩選符合商品
         filterProduct(type) {
 
+            console.log(type);
             if (type === 1) {
                 let la_totalItem = [];
                 for (let i = this.beginItem; i < this.endItem; i++) {
@@ -133,6 +134,25 @@ Vue.component('pagination', {
 });
 
 
+Vue.component('sear-bar', {
+    template: '<div class="well ">\n' +
+    '          <h4>商品搜尋</h4>\n' +
+    '          <div class="input-group ">\n' +
+    '            <input type="text" class="form-control" v-model="searchName">\n' +
+    '            <span class="input-group-btn">\n' +
+    '                <button class="btn btn-default" @click="search"><span class="glyphicon glyphicon-search "></span></button>\n' +
+    '            </span>\n' +
+    '          </div>\n' +
+    '        </div>',
+    props: ['searchName'],
+    methods: {
+        search() {
+            this.$emit('update-search', this.searchName);
+        }
+    }
+});
+
+
 let vm = new Vue({
     el: '#cart-app',
     data: {
@@ -172,7 +192,6 @@ let vm = new Vue({
     methods: {
         // 商品增加至購物車
         addItem(product) {
-            console.log('hello');
             let ln_checkCarts = this.carts.indexOf(product);
 
             // 購物車不存在此商品，新增商品
@@ -193,7 +212,8 @@ let vm = new Vue({
         },
 
         // 商品搜尋
-        search() {
+        changeSearch(str) {
+            this.searchName = str;
             if (this.searchName !== '') {
                 this.type = 2;
                 this.filterItems = this.items.filter((product) => {
