@@ -19,25 +19,11 @@
     <div class="row">
       <div class="col-md-8">
         <h1 class="page-header"><%= __('web title') %></small></h1>
-        <product-item :filter-items="filterItems" :items="items" :type="type" :begin-item="beginItem" :end-item="endItem" @add-cart="addItem"></product-item>
+        <product-item :filter-items="filterItems" :items="items" :type="type" :begin-item="beginItem" :end-item="endItem" @update-add-cart="addItem"></product-item>
 
         <hr>
         <!--Pager -->
-        <ul class="pagination">
-          <li>
-            <a href="#" aria-label="Previous" @click.prevent="previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li v-for="page in countOfPage">
-            <a href="#" @click.prevent="switchPage(page)">{{ page }}</a>
-          </li>
-          <li>
-            <a href="#" aria-label="Next" @click.prevent="next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
+        <pagination :pages="pages" :items="items" :current-page="currentPage" @update-show-item="chagneShowItem" @update-previous="changePrevious" @update-next="changeNext" @update-switch-page="changeSwitchPage"></pagination>
 
       </div>
 

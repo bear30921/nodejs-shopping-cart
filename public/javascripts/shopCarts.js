@@ -17,14 +17,14 @@ Vue.component('nav-bar', {
     '    </nav>'
 });
 
-
+//  商品項目
 Vue.component('product-item', {
     template: '<div><div class="item" v-for="product in filterProduct(type)">\n' +
     '          <h2>{{ product.name }}:index {{ product.index }}</h2>\n' +
     '          <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">\n' +
     '          <p>{{ product.info }}</p>\n' +
     '          <p class="item-price ">${{ product.price }}</p>\n' +
-    '          <a class="btn btn-primary " @click.prevent="$emit(\'add-cart\', product)" href="#"><%= __(\'add to cart\') %> <span class="glyphicon glyphicon-chevron-right "></span></a>\n' +
+    '          <a class="btn btn-primary " @click.prevent="addCart(product)" href="#"><%= __(\'add to cart\') %> <span class="glyphicon glyphicon-chevron-right "></span></a>\n' +
     '        </div></div>',
     props: ['filterItems', 'items', 'type', 'beginItem', 'endItem'],
     methods: {
@@ -55,19 +55,82 @@ Vue.component('product-item', {
 
             }
         },
+        addCart(product) {
+            this.$emit('update-add-cart', product);
+        }
 
     }
 });
 
 
+// 頁碼
+Vue.component('pagination', {
+    template: '<ul class="pagination">\n' +
+    '          <li>\n' +
+    '            <a href="#" aria-label="Previous" @click.prevent="previous">\n' +
+    '              <span aria-hidden="true">&laquo;</span>\n' +
+    '            </a>\n' +
+    '          </li>\n' +
+    '          <li v-for="page in countOfPage">\n' +
+    '            <a href="#" @click.prevent="switchPage(page)">{{ page }}</a>\n' +
+    '          </li>\n' +
+    '          <li>\n' +
+    '            <a href="#" aria-label="Next" @click.prevent="next">\n' +
+    '              <span aria-hidden="true">&raquo;</span>\n' +
+    '            </a>\n' +
+    '          </li>\n' +
+    '        </ul>',
+    props: ['pages', 'items', 'currentPage'],
+    data: {},
+    computed: {
+        // 頁碼
+        countOfPage() {
+            if (!this.pages) {
+                let ln_countProduct = this.items.length;
+                let lo_pageInfo = {};
+                // 設定初始商品顯示項目數量
+                let ln_showItem = 10;
+                // 計算總共頁碼
+                let ln_pages = ln_countProduct % ln_showItem === 0 ? ln_countProduct / ln_showItem : Math.ceil(ln_countProduct / ln_showItem);
+                //把子層要更動的資料傳遞給父層
+                lo_pageInfo = {
+                    showItem: ln_showItem,
+                    pages: ln_pages
+                };
+                this.$emit('update-show-item', lo_pageInfo);
+                return this.pages;
+            } else if (this.page !== '') {
+                return this.pages;
+            }
+        }
+    },
+    methods: {
+        //分頁上一頁
+        previous() {
+            // 目前頁數大於第一頁
+            if (this.currentPage > 1) {
+                this.$emit('update-previous');
+            }
+        },
+        // 分頁下一頁
+        next() {
+            // 目前頁數小於總頁數
+            if (this.currentPage < this.pages) {
 
-Vue.component('search-bar', {
-    template: '',
-    props: []
+                this.$emit('update-next');
+
+            }
+        },
+
+        // 切換分頁
+        switchPage(number) {
+
+            this.$emit('update-switch-page', number);
+
+        },
+    }
+
 });
-
-
-
 
 
 let vm = new Vue({
@@ -103,22 +166,7 @@ let vm = new Vue({
             return ln_amount;
         },
 
-        // 頁碼
-        countOfPage() {
-            if (!this.pages) {
-                let ln_countProduct = this.items.length;
-                // 設定初始商品顯示項目數量
-                this.showItem = 10;
-                let ln_showItem = this.showItem;
-                // 計算總共頁碼
-                let ln_pages = ln_countProduct % ln_showItem === 0 ? ln_countProduct / ln_showItem : Math.ceil(ln_countProduct / ln_showItem);
-                this.pages = ln_pages;
-                return this.pages;
-            } else if (this.page !== '') {
-                return this.pages;
-            }
 
-        }
     },
     watch: {},
     methods: {
@@ -161,39 +209,6 @@ let vm = new Vue({
             }
 
         },
-        // 切換分頁
-        switchPage(number) {
-            // 分頁第一頁之後
-            if (number > 1) {
-                this.currentPage = number;
-                this.beginItem = number * this.showItem - this.showItem;
-                this.endItem = number * this.showItem;
-                // 分頁目前是第一頁
-            } else if (number === 1) {
-                this.currentPage = number;
-                this.beginItem = 0;
-                this.endItem = 10;
-            }
-
-        },
-        //分頁上一頁
-        previous() {
-            // 目前頁數大於第一頁
-            if (this.currentPage > 1) {
-                this.currentPage--;
-                this.beginItem = this.beginItem - this.showItem;
-                this.endItem = this.endItem - this.showItem;
-            }
-        },
-        // 分頁下一頁
-        next() {
-            // 目前頁數小於總頁數
-            if (this.currentPage < this.pages) {
-                this.currentPage++;
-                this.beginItem = this.beginItem + this.showItem;
-                this.endItem = this.endItem + this.showItem;
-            }
-        },
         //取得產品資料
         getProItems: function () {
             axios.get("./data/pros-list.json")
@@ -218,6 +233,37 @@ let vm = new Vue({
                 });
             } else {
                 alert('購物車沒有商品');
+            }
+        },
+
+        chagneShowItem(info) {
+            this.showItem = info.showItem;
+            this.pages = info.pages;
+        },
+
+
+        changePrevious() {
+            this.currentPage--;
+            this.beginItem = this.beginItem - this.showItem;
+            this.endItem = this.endItem - this.showItem;
+        },
+        changeNext() {
+            this.currentPage++;
+            this.beginItem = this.beginItem + this.showItem;
+            this.endItem = this.endItem + this.showItem;
+        },
+
+        changeSwitchPage(number) {
+            // 分頁第一頁之後
+            if (number > 1) {
+                this.currentPage = number;
+                this.beginItem = number * this.showItem - this.showItem;
+                this.endItem = number * this.showItem;
+                // 分頁目前是第一頁
+            } else if (number === 1) {
+                this.currentPage = number;
+                this.beginItem = 0;
+                this.endItem = 10;
             }
         }
     }
