@@ -27,10 +27,25 @@ let vm = new Vue({
                 alert('請輸入帳號密碼');
             }
         },
-        switchLanguage() {
+        switchLanguage(event) {
 
-            // 發送一個get請求
-            console.log('language');
+
+
+
+            console.log(event.currentTarget);
+            console.log('===========');
+            console.log(this);
+
+
+
+            let ls_language = event.currentTarget.dataset.language;
+
+            $.get("/language/"+ ls_language, function(data){
+                if (data.success) {
+                    window.location.pathname = '/login';
+                }
+            });
+
         }
 
     }
