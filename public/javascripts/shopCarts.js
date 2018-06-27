@@ -1,21 +1,43 @@
 const messages = {
-    en: {
-        message: {
-            hello: 'hello world'
+    "en": {
+        "message": {
+            "signOut": "sign out",
+            "webTitle": "VUEJS practice - store",
+            "productSearch": "product search",
+            "carts": "carts",
+            "amount": "amount",
+            "checkout": "checkout",
+            "addToCart": "add to cart",
+            "webName": "shopping mall",
+            "order": "order",
+            "profile": "profile",
         }
     },
-    ja: {
-        message: {
-            hello: 'こんにちは、世界'
+    "zh-tw": {
+        "message": {
+            "signOut": "登出",
+            "webTitle": "VUEJS 實戰 - 5倍商城",
+            "productSearch": "商品搜尋",
+            "carts": "購物車",
+            "amount": "小計",
+            "checkout": "結帳",
+            "addToCart": "放入購物車",
+            "webName": "購物商城",
+            "order": "購物紀錄",
+            "profile": "會員修改",
         }
     }
 };
 
 
+// 取得瀏覽器存的資料
+let lo_setLocal = localStorage.getItem('internationalization');
+lo_setLocal = JSON.parse(lo_setLocal);
+
 
 // Create VueI18n instance with options
-const i18n = new VueI18n({
-    locale: 'ja', // set locale
+let i18n = new VueI18n({
+    locale: lo_setLocal.language, // set locale
     messages, // set locale messages
 });
 
@@ -25,12 +47,12 @@ Vue.component('nav-bar', {
     template: '<nav class="navbar navbar-inverse">\n' +
     '      <div class="container-fluid">\n' +
     '        <div class="navbar-header">\n' +
-    '          <a class="navbar-brand" href="#"><%= __(\'web name\') %></a>\n' +
+    '          <a class="navbar-brand" href="#">{{ $t("message.webName") }}</a>\n' +
     '        </div>\n' +
     '        <ul class="nav navbar-nav navbar-right">\n' +
-    '          <li><a href="/user/order"><span class="glyphicon glyphicon-shopping-cart"></span><%= __(\'order\') %></a></li>\n' +
-    '          <li><a href="/user/edit"><span class="glyphicon glyphicon-user"></span><%= __(\'profile\') %></a></li>\n' +
-    '          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span><%= __(\'sign out\') %></a></li>\n' +
+    '          <li><a href="/user/order"><span class="glyphicon glyphicon-shopping-cart"></span>{{ $t("message.order") }}</a></li>\n' +
+    '          <li><a href="/user/edit"><span class="glyphicon glyphicon-user"></span>{{ $t("message.profile") }}</a></li>\n' +
+    '          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>{{ $t("message.signOut") }}</a></li>\n' +
     '\n' +
     '\n' +
     '        </ul>\n' +
@@ -45,7 +67,7 @@ Vue.component('product-item', {
     '          <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">\n' +
     '          <p>{{ product.info }}</p>\n' +
     '          <p class="item-price ">${{ product.price }}</p>\n' +
-    '          <a class="btn btn-primary " @click.prevent="addCart(product)" href="#"><%= __(\'add to cart\') %> <span class="glyphicon glyphicon-chevron-right "></span></a>\n' +
+    '          <a class="btn btn-primary " @click.prevent="addCart(product)" href="#">{{ $t("message.addToCart") }} <span class="glyphicon glyphicon-chevron-right "></span></a>\n' +
     '        </div></div>',
     props: ['filterItems', 'items', 'type', 'beginItem', 'endItem'],
     methods: {
@@ -156,7 +178,7 @@ Vue.component('pagination', {
 // 搜尋列
 Vue.component('search-bar', {
     template: '<div class="well ">\n' +
-    '          <h4>商品搜尋</h4>\n' +
+    '          <h4>{{ $t("message.productSearch") }}</h4>\n' +
     '          <div class="input-group ">\n' +
     '            <input type="text" class="form-control" v-model="searchName">\n' +
     '            <span class="input-group-btn">\n' +
@@ -176,7 +198,7 @@ Vue.component('search-bar', {
 // 購物車
 Vue.component('shopping-cart', {
     template: '<div class="well cart">\n' +
-    '          <h4><%= __(\'carts\') %></h4>\n' +
+    '          <h4>{{ $t("message.carts") }}</h4>\n' +
     '\n' +
     '          <ul class="itemsInCart ">\n' +
     '            <li v-for="cartProduct in carts" :key="cartProduct.index">\n' +
@@ -188,9 +210,9 @@ Vue.component('shopping-cart', {
     '            </li>\n' +
     '          </ul>\n' +
     '          <hr>\n' +
-    '          <p><%= __(\'amount\') %>： <span>${{ amount }}</span></p>\n' +
+    '          <p>{{ $t("message.amount") }}： <span>${{ amount }}</span></p>\n' +
     '          <p>\n' +
-    '            <button type="button" class="btn btn-primary" @click="checkout"><%= __(\'checkout\') %></button>\n' +
+    '            <button type="button" class="btn btn-primary" @click="checkout">{{ $t("message.checkout") }}</button>\n' +
     '          </p>\n' +
     '        </div>',
     props: ['carts'],

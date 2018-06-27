@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title><%= __('web title') %></title>
+  <title>{{ $t("message.webTitle") }}</title>
   <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="/stylesheets/blog-home.css" rel="stylesheet">
 </head>
@@ -15,11 +15,10 @@
 <body>
   <!-- Page Content -->
   <div id="cart-app" class="container">
-    <h1><p>{{ $t("message.hello") }}</p></h1>
     <nav-bar></nav-bar>
     <div class="row">
       <div class="col-md-8">
-        <h1 class="page-header"><%= __('web title') %></small></h1>
+        <h1 class="page-header">{{ $t("message.webTitle") }}</small></h1>
         <product-item :filter-items="filterItems" :items="items" :type="type" :begin-item="beginItem" :end-item="endItem" @update-add-cart="addItem"></product-item>
         <hr>
         <pagination :pages="pages" :items="items" :current-page="currentPage" @update-show-item="chagneShowItem" @update-previous="changePrevious" @update-next="changeNext" @update-switch-page="changeSwitchPage"></pagination>

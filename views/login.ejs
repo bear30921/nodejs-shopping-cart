@@ -16,6 +16,7 @@
 <!-- Page Content -->
 <div class="login" id="login">
     <div class="container">
+        <!--<h1><p>{{ $t("message.hello") }}</p></h1>-->
         <h1><%= __('login page') %></h1>
         <form class="form-horizontal" method="post">
             <div class="form-group">
@@ -42,8 +43,8 @@
                             <%= __('language') %>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/language/zh-tw" data-language="zh-tw" style="display: block; padding-left: 10px;" @click.prevent="switchLanguage"><%= __('traditional Chinese') %></a>
-                            <a class="dropdown-item" href="/language/en" data-language="en" style="display: block; padding-left: 10px;" @click.prevent="switchLanguage"><%= __('english') %></a>
+                            <a class="dropdown-item" href="#" data-language="zh-tw" style="display: block; padding-left: 10px;" @click.prevent="switchLanguage"><%= __('traditional Chinese') %></a>
+                            <a class="dropdown-item" href="#" data-language="en" style="display: block; padding-left: 10px;" @click.prevent="switchLanguage"><%= __('english') %></a>
                         </div>
                     </div>
 
@@ -58,6 +59,7 @@
 
 <!-- /.container -->
 <script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue-i18n/dist/vue-i18n.js"></script>
 <script src="/javascripts/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
