@@ -32,12 +32,18 @@ const messages = {
 
 // 取得瀏覽器存的資料
 let lo_setLocal = localStorage.getItem('internationalization');
-lo_setLocal = JSON.parse(lo_setLocal);
+let ls_language;
 
+if(!lo_setLocal){
+    ls_language = "zh-tw";
+} else {
+    lo_setLocal = JSON.parse(lo_setLocal);
+    ls_language = lo_setLocal.language
+}
 
-// Create VueI18n instance with options
+console.log(ls_language);
 let i18n = new VueI18n({
-    locale: lo_setLocal.language, // set locale
+    locale: ls_language, // set locale
     messages, // set locale messages
 });
 
