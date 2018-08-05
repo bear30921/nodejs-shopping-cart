@@ -27,7 +27,9 @@ let app = express();
 
 
 // 連接mongoDB資料庫
-mongoose.connect('mongodb://shopping:mongo@192.168.1.76:2717/shopping-car');
+
+
+mongoose.connect('mongodb://jack:jack19920715@ds123929.mlab.com:23929/local_library');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

@@ -4,11 +4,11 @@
 
 .login, .userEdit {
     margin-top: 150px;
+    margin-bottom: 150px;
 }
 
 .container {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 100px;
 }
 
 .container > h1 {
@@ -24,4 +24,11 @@
 
 #dialog {
     display: none;
+}
+
+
+@media (min-width: 768px){
+    .container {
+        width: 800px;
+    }
 }

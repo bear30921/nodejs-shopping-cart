@@ -2,7 +2,7 @@ const messages = {
     "en": {
         "message": {
             "signOut": "sign out",
-            "webTitle": "VUEJS practice - store",
+            "webTitle": "online store",
             "productSearch": "product search",
             "carts": "carts",
             "amount": "amount",
@@ -16,7 +16,7 @@ const messages = {
     "zh-tw": {
         "message": {
             "signOut": "登出",
-            "webTitle": "VUEJS 實戰 - 5倍商城",
+            "webTitle": "網路商城",
             "productSearch": "商品搜尋",
             "carts": "購物車",
             "amount": "小計",
@@ -69,7 +69,7 @@ Vue.component('nav-bar', {
 //  商品項目
 Vue.component('product-item', {
     template: '<div><div class="item" v-for="product in filterProduct(type)">\n' +
-    '          <h2>{{ product.name }}:index {{ product.index }}</h2>\n' +
+    '          <h2>編號 {{ product.index + 1}}：{{ product.name }}</h2>\n' +
     '          <img class="item-img img-responsive" :src="product.picture" :alt="product.imageType">\n' +
     '          <p>{{ product.info }}</p>\n' +
     '          <p class="item-price ">${{ product.price }}</p>\n' +
