@@ -98,7 +98,8 @@ app.set('port', '8080');
 let server = http.createServer(app);
 
 // 啟動伺服器
-server.listen(8080);
+server.listen(process.env.PORT || 8080);
+// server.listen(8080);
 
 
 module.exports = app;
